@@ -12,5 +12,4 @@ entrypoints:
     address: ":80"
 
 log:
-  level: DEBUG
-  filePath: /logs/traefik.log
+  level: INFO
