@@ -11,6 +11,9 @@ init:
 apply:
 	$(EXEC) terraform apply $(ARGS)
 
+plan:
+	$(EXEC) terraform plan $(ARGS)
+
 destroy:
 	$(EXEC) terraform destroy $(ARGS)
 
