@@ -116,18 +116,22 @@ resource "kubernetes_ingress_v1" "dashboard" {
   }
 
   spec {
-    rule {
-      host = "localhost"
+    dynamic "rule" {
+      for_each = var.reverse_proxy_domains
 
-      http {
-        path {
-          path = "/"
+      content {
+        host = var.traefik_subdomain != null ? "${var.traefik_subdomain}.${rule.value}" : rule.value
 
-          backend {
-            service {
-              name = "traefik"
-              port {
-                number = 8080
+        http {
+          path {
+            path = "/"
+
+            backend {
+              service {
+                name = "traefik"
+                port {
+                  number = 8080
+                }
               }
             }
           }

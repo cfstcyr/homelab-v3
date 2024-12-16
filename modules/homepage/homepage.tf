@@ -82,18 +82,22 @@ resource "kubernetes_ingress_v1" "homepage" {
   }
 
   spec {
-    rule {
-      host = "home.localhost"
+    dynamic "rule" {
+      for_each = var.reverse_proxy_domains
 
-      http {
-        path {
-          path = "/"
+      content {
+        host = var.homepage_subdomain != null ? "${var.homepage_subdomain}.${rule.value}" : rule.value
 
-          backend {
-            service {
-              name = var.homepage_app
-              port {
-                number = 80
+        http {
+          path {
+            path = "/"
+
+            backend {
+              service {
+                name = var.homepage_app
+                port {
+                  number = 80
+                }
               }
             }
           }
