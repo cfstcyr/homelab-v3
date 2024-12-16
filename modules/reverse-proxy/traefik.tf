@@ -21,6 +21,8 @@ resource "kubernetes_deployment" "traefik" {
       metadata {
         labels = {
           app = local.traefik
+          config_hash = local.traefik_config_hash
+          providers_hash = local.traefik_config_providers_hash
         }
       }
 
