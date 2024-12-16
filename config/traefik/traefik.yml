@@ -6,6 +6,9 @@ providers:
   file:
     directory: /etc/traefik/providers
     watch: false
+  kubernetesIngress:
+    namespaces:
+      - ${namespace}
 
 entrypoints:
   web:

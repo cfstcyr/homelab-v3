@@ -6,13 +6,15 @@ locals {
 
   traefik_config_content = templatefile(
     "${local.config_path}/${local.traefik_config_file}",
-    { test = "hello" }
+    {
+      namespace = var.namespace
+    }
   )
 
   traefik_config_providers_content = {
     for file in fileset("${local.config_path}/${local.traefik_config_providers_dir}", "*") : file => templatefile(
       "${local.config_path}/${local.traefik_config_providers_dir}/${file}",
-      { hostname = "hello" }
+      {}
     )
   }
 

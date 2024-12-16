@@ -27,6 +27,8 @@ resource "kubernetes_deployment" "traefik" {
       }
 
       spec {
+        service_account_name = kubernetes_service_account.traefik.metadata[0].name
+
         volume {
           name = "${local.traefik}-config"
 
@@ -51,14 +53,20 @@ resource "kubernetes_deployment" "traefik" {
             container_port = 80
           }
 
+          port {
+            container_port = 8080
+          }
+
           volume_mount {
             name = "${local.traefik}-config"
             mount_path = "/etc/traefik/"
+            read_only = true
           }
 
           volume_mount {
             name = "${local.traefik}-config-providers"
             mount_path = "/etc/traefik/providers/"
+            read_only = true
           }
         }
       }
@@ -80,8 +88,42 @@ resource "kubernetes_service" "traefik" {
     type = "LoadBalancer" # Magic line: allows the service to be exposed externally
 
     port {
+      name = "http"
       port = 80
       target_port = 80
+    }
+
+    port {
+      name = "dashboard"
+      port = 8080
+      target_port = 8080
+    }
+  }
+}
+
+resource "kubernetes_ingress_v1" "dashboard" {
+  metadata {
+    name      = "${local.traefik}-dashboard"
+    namespace = var.namespace
+  }
+
+  spec {
+    rule {
+      host = "localhost"
+
+      http {
+        path {
+
+          backend {
+            service {
+              name = "traefik"
+              port {
+                number = 8080
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
