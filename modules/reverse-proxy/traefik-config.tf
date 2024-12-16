@@ -1,5 +1,5 @@
 locals {
-  config_path = "${var.config_path}/${local.traefik}"
+  config_path = "${var.config_path}/${var.traefik_app}"
 
   traefik_config_file = "traefik.yml"
   traefik_config_providers_dir = "providers"
@@ -27,7 +27,7 @@ locals {
 
 resource "kubernetes_config_map" "traefik_config" {
   metadata {
-    name = "${local.traefik}-config"
+    name = "${var.traefik_app}-config"
     namespace = var.namespace
   }
 
@@ -38,7 +38,7 @@ resource "kubernetes_config_map" "traefik_config" {
 
 resource "kubernetes_config_map" "traefik_config_providers" {
   metadata {
-    name = "${local.traefik}-config-providers"
+    name = "${var.traefik_app}-config-providers"
     namespace = var.namespace
   }
 

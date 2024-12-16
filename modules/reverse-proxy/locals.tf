@@ -1,3 +1,0 @@
-locals {
-  traefik = "traefik"
-}

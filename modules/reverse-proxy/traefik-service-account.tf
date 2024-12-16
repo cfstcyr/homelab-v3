@@ -1,13 +1,13 @@
 resource "kubernetes_service_account" "traefik" {
   metadata {
-    name      = "${local.traefik}-service-account"
+    name      = "${var.traefik_app}-service-account"
     namespace = var.namespace
   }
 }
 
 resource "kubernetes_role" "traefik-ingress" {
   metadata {
-    name = "${local.traefik}-ingress-controller"
+    name = "${var.traefik_app}-ingress-controller"
     namespace = var.namespace
   }
 
@@ -28,7 +28,7 @@ resource "kubernetes_role" "traefik-ingress" {
 
 resource "kubernetes_role_binding" "traefik" {
   metadata {
-    name = "${local.traefik}-ingress-controller"
+    name = "${var.traefik_app}-ingress-controller"
     namespace = var.namespace
   }
 
@@ -48,7 +48,7 @@ resource "kubernetes_role_binding" "traefik" {
 // TODO: Find actual permissions for Traefik instead of using cluster-admin
 resource "kubernetes_cluster_role_binding" "traefik-admin" {
   metadata {
-    name = "${local.traefik}-ingress-controller-admin"
+    name = "${var.traefik_app}-ingress-controller-admin"
   }
 
   subject {

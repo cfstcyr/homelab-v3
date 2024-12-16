@@ -1,10 +1,10 @@
 resource "kubernetes_deployment" "traefik" {
   metadata {
-    name = local.traefik
+    name = var.traefik_app
     namespace = var.namespace
 
     labels = {
-      app = local.traefik
+      app = var.traefik_app
     }
   }
 
@@ -13,14 +13,14 @@ resource "kubernetes_deployment" "traefik" {
 
     selector {
       match_labels = {
-        app = local.traefik
+        app = var.traefik_app
       }
     }
 
     template {
       metadata {
         labels = {
-          app = local.traefik
+          app = var.traefik_app
           config_hash = local.traefik_config_hash
           providers_hash = local.traefik_config_providers_hash
         }
@@ -30,7 +30,7 @@ resource "kubernetes_deployment" "traefik" {
         service_account_name = kubernetes_service_account.traefik.metadata[0].name
 
         volume {
-          name = "${local.traefik}-config"
+          name = "${var.traefik_app}-config"
 
           config_map {
             name = kubernetes_config_map.traefik_config.metadata.0.name
@@ -38,7 +38,7 @@ resource "kubernetes_deployment" "traefik" {
         }
 
         volume {
-          name = "${local.traefik}-config-providers"
+          name = "${var.traefik_app}-config-providers"
 
           config_map {
             name = kubernetes_config_map.traefik_config_providers.metadata.0.name
@@ -46,7 +46,7 @@ resource "kubernetes_deployment" "traefik" {
         }
 
         container {
-          name = local.traefik
+          name = var.traefik_app
           image = "traefik:v3.2"
           
           port {
@@ -58,13 +58,13 @@ resource "kubernetes_deployment" "traefik" {
           }
 
           volume_mount {
-            name = "${local.traefik}-config"
+            name = "${var.traefik_app}-config"
             mount_path = "/etc/traefik/"
             read_only = true
           }
 
           volume_mount {
-            name = "${local.traefik}-config-providers"
+            name = "${var.traefik_app}-config-providers"
             mount_path = "/etc/traefik/providers/"
             read_only = true
           }
@@ -76,13 +76,13 @@ resource "kubernetes_deployment" "traefik" {
 
 resource "kubernetes_service" "traefik" {
   metadata {
-    name = local.traefik
+    name = var.traefik_app
     namespace = var.namespace
   }
 
   spec {
     selector = {
-      app = local.traefik
+      app = var.traefik_app
     }
 
     type = "LoadBalancer" # Magic line: allows the service to be exposed externally
@@ -103,7 +103,7 @@ resource "kubernetes_service" "traefik" {
 
 resource "kubernetes_ingress_v1" "dashboard" {
   metadata {
-    name      = "${local.traefik}-dashboard"
+    name      = "${var.traefik_app}-dashboard"
     namespace = var.namespace
   }
 
