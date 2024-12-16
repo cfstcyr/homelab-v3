@@ -1,0 +1,16 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/settings
+
+logpath: /logs
+instanceName: ${instanceName}
+statusStyle: dot
+headerStyle: clean
+
+layout:
+  Media:
+    icon: mdi-movie
+  Management:
+    icon: mdi-folder
+  Tools:
+    icon: mdi-toolbox

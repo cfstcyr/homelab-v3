@@ -11,3 +11,11 @@ module "reverse-proxy" {
 
   config_path = "${path.module}/config"
 }
+
+module "homepage" {
+  source = "./modules/homepage"
+
+  namespace = kubernetes_namespace.homelab.metadata.0.name
+
+  config_path = "${path.module}/config"
+}

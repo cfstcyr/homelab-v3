@@ -105,6 +105,14 @@ resource "kubernetes_ingress_v1" "dashboard" {
   metadata {
     name      = "${var.traefik_app}-dashboard"
     namespace = var.namespace
+
+    annotations = {
+      "gethomepage.dev/enabled": "true",
+      "gethomepage.dev/name": "Traefik",
+      "gethomepage.dev/icon": "traefik",
+      "gethomepage.dev/group": "Tools",
+      "gethomepage.dev/pod-selector": "",
+    }
   }
 
   spec {
@@ -113,6 +121,7 @@ resource "kubernetes_ingress_v1" "dashboard" {
 
       http {
         path {
+          path = "/"
 
           backend {
             service {
