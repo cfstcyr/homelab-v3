@@ -111,6 +111,7 @@ resource "kubernetes_ingress_v1" "dashboard" {
       "gethomepage.dev/name": "Traefik",
       "gethomepage.dev/icon": "traefik",
       "gethomepage.dev/group": "Tools",
+      "gethomepage.dev/weight": "30",
       "gethomepage.dev/widget.type": "traefik",
       "gethomepage.dev/widget.url": "http://${var.traefik_app}:8080",
       "gethomepage.dev/pod-selector": "",

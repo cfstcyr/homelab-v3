@@ -5,6 +5,7 @@
 - Tools:
   - VPN:
       icon: gluetun
+      weight: 100
       widget:
         type: gluetun
         url: http://vpn:8000
