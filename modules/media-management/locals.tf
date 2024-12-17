@@ -4,4 +4,5 @@ locals {
   sonarr_app = "sonarr"
   prowlarr_app = "prowlarr"
   transmission_app = "transmission"
+  buildarr_app = "buildarr"
 }

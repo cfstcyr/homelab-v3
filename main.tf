@@ -31,6 +31,10 @@ module "media_management" {
   config_path = "${path.module}/config"
   vpn_env = var.vpn_env
 
+  radarr_api_key = var.radarr_api_key
+  sonarr_api_key = var.sonarr_api_key
+  prowlarr_api_key = var.prowlarr_api_key
+
   reverse_proxy_domains = var.reverse_proxy_domains
   radarr_subdomain = var.radarr_subdomain
   sonarr_subdomain = var.sonarr_subdomain

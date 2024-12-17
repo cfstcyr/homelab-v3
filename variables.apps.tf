@@ -25,6 +25,14 @@ variable "radarr_subdomain" {
   default     = "radarr"
 }
 
+variable "radarr_api_key" {
+  type        = string
+  description = "API key for Radarr"
+  nullable    = true
+  sensitive   = true
+  default     = null
+}
+
 # Sonarr  ===================
 
 variable "sonarr_subdomain" {
@@ -34,6 +42,14 @@ variable "sonarr_subdomain" {
   default     = "sonarr"
 }
 
+variable "sonarr_api_key" {
+  type        = string
+  description = "API key for Sonarr"
+  nullable    = true
+  sensitive   = true
+  default     = null
+}
+
 # Prowlarr  =================
 
 variable "prowlarr_subdomain" {
@@ -41,6 +57,14 @@ variable "prowlarr_subdomain" {
   description = "Domain for Prowlarr"
   nullable    = true
   default     = "prowlarr"
+}
+
+variable "prowlarr_api_key" {
+  type        = string
+  description = "API key for Prowlarr"
+  nullable    = true
+  sensitive   = true
+  default     = null
 }
 
 # Transmission  =============

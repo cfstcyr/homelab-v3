@@ -21,6 +21,7 @@ resource "kubernetes_deployment" "media_management" {
       metadata {
         labels = {
           app = var.media_management_app
+          buildarr_config_hash = local.buildarr_config_hash
         }
       }
 
@@ -82,6 +83,14 @@ resource "kubernetes_deployment" "media_management" {
           name = "${local.transmission_app}-config"
           persistent_volume_claim {
             claim_name = kubernetes_persistent_volume_claim.transmission_config.metadata.0.name
+          }
+        }
+
+        volume {
+          name = "${local.buildarr_app}-config"
+          
+          config_map {
+            name = kubernetes_config_map.buildarr_config.metadata.0.name
           }
         }
 
@@ -178,6 +187,73 @@ resource "kubernetes_deployment" "media_management" {
 
           volume_mount {
             name = "${local.transmission_app}-config"
+            mount_path = "/config"
+          }
+        }
+
+        container {
+          name = "buildarr"
+          image = "callum027/buildarr:latest"
+
+          
+
+          volume_mount {
+            name = "${local.buildarr_app}-config"
+            mount_path = "/config"
+            read_only = true
+          }
+        }
+
+        init_container {
+          name = "${local.radarr_app}-init"
+          image = "bitnami/kubectl:latest"
+          command = ["/bin/sh", "-c"]
+          args = [templatefile(
+            "${var.config_path}/scripts/init-arr.sh",
+            {
+              config_file = "/config/config.xml",
+              api_key = random_string.radarr_api_key.result,
+            },
+          )]
+
+          volume_mount {
+            name = "${local.radarr_app}-config"
+            mount_path = "/config"
+          }
+        }
+
+        init_container {
+          name = "${local.sonarr_app}-init"
+          image = "bitnami/kubectl:latest"
+          command = ["/bin/sh", "-c"]
+          args = [templatefile(
+            "${var.config_path}/scripts/init-arr.sh",
+            {
+              config_file = "/config/config.xml",
+              api_key = random_string.sonarr_api_key.result,
+            },
+          )]
+
+          volume_mount {
+            name = "${local.sonarr_app}-config"
+            mount_path = "/config"
+          }
+        }
+
+        init_container {
+          name = "${local.prowlarr_app}-init"
+          image = "bitnami/kubectl:latest"
+          command = ["/bin/sh", "-c"]
+          args = [templatefile(
+            "${var.config_path}/scripts/init-arr.sh",
+            {
+              config_file = "/config/config.xml",
+              api_key = random_string.prowlarr_api_key.result,
+            },
+          )]
+
+          volume_mount {
+            name = "${local.prowlarr_app}-config"
             mount_path = "/config"
           }
         }

@@ -1,0 +1,25 @@
+sonarr:
+  hostname: localhost
+  port: 8989
+  protocol: http
+  api_key: ${sonarr_api_key}
+
+  settings:
+    media_management:
+      rename_episodes: true
+      replace_illegal_characters: true
+      colon_replacement: dash
+      standard_episode_format: "{Series CleanTitleYear} - S{season:00}E{episode:00} - {Episode CleanTitle} {Quality Title}"
+      series_folder_format: "{Series CleanTitleYear}"
+      season_folder_format: "Season {season:00}"
+      delete_unmanaged_root_folders: true
+      root_folders:
+        - /tv
+    download_clients:
+      delete_unmanaged: true
+      definitions:
+        Transmission:
+          type: transmission
+          host: localhost
+          port: 9091
+          category: ""

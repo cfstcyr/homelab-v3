@@ -1,6 +1,6 @@
 resource "kubernetes_ingress_v1" "sonarr" {
   metadata {
-    name = "sonarr"
+    name = local.sonarr_app
     namespace = var.namespace
 
     annotations = {
@@ -8,6 +8,9 @@ resource "kubernetes_ingress_v1" "sonarr" {
       "gethomepage.dev/name": "Sonarr",
       "gethomepage.dev/icon": "sonarr",
       "gethomepage.dev/group": "Management",
+      "gethomepage.dev/widget.type": "sonarr",
+      "gethomepage.dev/widget.url": "http://${local.sonarr_app}:8989",
+      "gethomepage.dev/widget.key": random_string.sonarr_api_key.result,
       "gethomepage.dev/pod-selector": "",
     }
   }
@@ -47,6 +50,9 @@ resource "kubernetes_ingress_v1" "radarr" {
       "gethomepage.dev/name": "Radarr",
       "gethomepage.dev/icon": "radarr",
       "gethomepage.dev/group": "Management",
+      "gethomepage.dev/widget.type": "radarr",
+      "gethomepage.dev/widget.url": "http://${local.radarr_app}:7878",
+      "gethomepage.dev/widget.key": random_string.radarr_api_key.result,
       "gethomepage.dev/pod-selector": "",
     }
   }
@@ -86,6 +92,8 @@ resource "kubernetes_ingress_v1" "transmission" {
       "gethomepage.dev/name": "Transmission",
       "gethomepage.dev/icon": "transmission",
       "gethomepage.dev/group": "Management",
+      "gethomepage.dev/widget.type": "transmission",
+      "gethomepage.dev/widget.url": "http://${local.transmission_app}:9091",
       "gethomepage.dev/pod-selector": "",
     }
   }
@@ -125,6 +133,9 @@ resource "kubernetes_ingress_v1" "prowlarr" {
       "gethomepage.dev/name": "Prowlarr",
       "gethomepage.dev/icon": "prowlarr",
       "gethomepage.dev/group": "Management",
+      "gethomepage.dev/widget.type": "prowlarr",
+      "gethomepage.dev/widget.url": "http://${local.prowlarr_app}:9696",
+      "gethomepage.dev/widget.key": random_string.prowlarr_api_key.result,
       "gethomepage.dev/pod-selector": "",
     }
   }

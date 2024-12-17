@@ -1,0 +1,9 @@
+---
+
+includes:
+  - radarr.yml
+  - sonarr.yml
+  - prowlarr.yml
+
+buildarr:
+  watch_config: false

@@ -1,0 +1,26 @@
+radarr:
+  hostname: localhost
+  port: 7878
+  protocol: http
+  api_key: ${radarr_api_key}
+
+  settings:
+    media_management:
+      rename_movies: true
+      replace_illegal_characters: true
+      colon_replacement: spaceDashSpace
+      standard_movie_format: "{Movie CleanTitle} ({Release Year}) {Quality Title}"
+      movie_folder_format: "{Movie CleanTitle} ({Release Year})"
+      root_folders:
+        delete_unmanaged: true
+        definitions:
+          - /movies
+
+    download_clients:
+      delete_unmanaged: true
+      definitions:
+        Transmission:
+          type: transmission
+          hostname: localhost
+          port: 9091
+          category: ""
