@@ -7,7 +7,7 @@ resource "kubernetes_service_account" "homepage" {
 
 resource "kubernetes_role" "homepage-ingress" {
   metadata {
-    name = "${var.homepage_app}-ingress-controller"
+    name      = "${var.homepage_app}-ingress-controller"
     namespace = var.namespace
   }
 
@@ -28,7 +28,7 @@ resource "kubernetes_role" "homepage-ingress" {
 
 resource "kubernetes_role_binding" "homepage" {
   metadata {
-    name = "${var.homepage_app}-ingress-controller"
+    name      = "${var.homepage_app}-ingress-controller"
     namespace = var.namespace
   }
 

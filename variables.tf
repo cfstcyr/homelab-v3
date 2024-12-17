@@ -1,7 +1,7 @@
 variable "reverse_proxy_domains" {
   type        = list(string)
   description = "Domains for the homelab"
-  default     = [ "localhost" ]
+  default     = ["localhost"]
 }
 
 variable "vpn_env" {

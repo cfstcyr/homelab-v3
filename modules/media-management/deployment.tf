@@ -1,6 +1,6 @@
 resource "kubernetes_deployment" "media_management" {
   metadata {
-    name = var.media_management_app
+    name      = var.media_management_app
     namespace = var.namespace
 
     labels = {
@@ -20,7 +20,7 @@ resource "kubernetes_deployment" "media_management" {
     template {
       metadata {
         labels = {
-          app = var.media_management_app
+          app                  = var.media_management_app
           buildarr_config_hash = local.buildarr_config_hash
         }
       }
@@ -61,41 +61,41 @@ resource "kubernetes_deployment" "media_management" {
         volume {
           name = "${local.sonarr_app}-config"
           persistent_volume_claim {
-            claim_name = kubernetes_persistent_volume_claim.sonarr_config.metadata.0.name
+            claim_name = kubernetes_persistent_volume_claim.sonarr_config.metadata[0].name
           }
         }
 
         volume {
           name = "${local.radarr_app}-config"
           persistent_volume_claim {
-            claim_name = kubernetes_persistent_volume_claim.radarr_config.metadata.0.name
+            claim_name = kubernetes_persistent_volume_claim.radarr_config.metadata[0].name
           }
         }
 
         volume {
           name = "${local.prowlarr_app}-config"
           persistent_volume_claim {
-            claim_name = kubernetes_persistent_volume_claim.prowlarr_config.metadata.0.name
+            claim_name = kubernetes_persistent_volume_claim.prowlarr_config.metadata[0].name
           }
         }
 
         volume {
           name = "${local.transmission_app}-config"
           persistent_volume_claim {
-            claim_name = kubernetes_persistent_volume_claim.transmission_config.metadata.0.name
+            claim_name = kubernetes_persistent_volume_claim.transmission_config.metadata[0].name
           }
         }
 
         volume {
           name = "${local.buildarr_app}-config"
-          
+
           config_map {
-            name = kubernetes_config_map.buildarr_config.metadata.0.name
+            name = kubernetes_config_map.buildarr_config.metadata[0].name
           }
         }
 
         container {
-          name = local.vpn_app
+          name  = local.vpn_app
           image = "qmcgaw/gluetun:v3.37.0"
 
           security_context {
@@ -105,10 +105,10 @@ resource "kubernetes_deployment" "media_management" {
           }
 
           volume_mount {
-            name = "tun-device"
+            name       = "tun-device"
             mount_path = "/dev/net/tun"
           }
-          
+
           port {
             container_port = 8000
           }
@@ -117,14 +117,14 @@ resource "kubernetes_deployment" "media_management" {
             for_each = var.vpn_env
 
             content {
-              name = env.key
+              name  = env.key
               value = env.value
             }
           }
         }
 
         container {
-          name = local.sonarr_app
+          name  = local.sonarr_app
           image = "linuxserver/sonarr:latest"
 
           port {
@@ -132,18 +132,18 @@ resource "kubernetes_deployment" "media_management" {
           }
 
           volume_mount {
-            name = "tv"
+            name       = "tv"
             mount_path = "/tv"
           }
 
           volume_mount {
-            name = "${local.sonarr_app}-config"
+            name       = "${local.sonarr_app}-config"
             mount_path = "/config"
           }
         }
 
         container {
-          name = local.radarr_app
+          name  = local.radarr_app
           image = "linuxserver/radarr:latest"
 
           port {
@@ -151,18 +151,18 @@ resource "kubernetes_deployment" "media_management" {
           }
 
           volume_mount {
-            name = "movies"
+            name       = "movies"
             mount_path = "/movies"
           }
 
           volume_mount {
-            name = "${local.radarr_app}-config"
+            name       = "${local.radarr_app}-config"
             mount_path = "/config"
           }
         }
 
         container {
-          name = local.prowlarr_app
+          name  = local.prowlarr_app
           image = "lscr.io/linuxserver/prowlarr:latest"
 
           port {
@@ -170,13 +170,13 @@ resource "kubernetes_deployment" "media_management" {
           }
 
           volume_mount {
-            name = "${local.prowlarr_app}-config"
+            name       = "${local.prowlarr_app}-config"
             mount_path = "/config"
           }
         }
 
         container {
-          name = local.transmission_app
+          name  = local.transmission_app
           image = "linuxserver/transmission:latest"
 
           port {
@@ -184,79 +184,79 @@ resource "kubernetes_deployment" "media_management" {
           }
 
           volume_mount {
-            name = "downloads"
+            name       = "downloads"
             mount_path = "/downloads"
           }
 
           volume_mount {
-            name = "${local.transmission_app}-config"
+            name       = "${local.transmission_app}-config"
             mount_path = "/config"
           }
         }
 
         container {
-          name = "buildarr"
+          name  = "buildarr"
           image = "callum027/buildarr:latest"
 
-          
+
 
           volume_mount {
-            name = "${local.buildarr_app}-config"
+            name       = "${local.buildarr_app}-config"
             mount_path = "/config"
-            read_only = true
+            read_only  = true
           }
         }
 
         init_container {
-          name = "${local.radarr_app}-init"
-          image = "bitnami/kubectl:latest"
+          name    = "${local.radarr_app}-init"
+          image   = "bitnami/kubectl:latest"
           command = ["/bin/sh", "-c"]
           args = [templatefile(
             "${var.config_path}/scripts/init-arr.sh",
             {
               config_file = "/config/config.xml",
-              api_key = random_string.radarr_api_key.result,
+              api_key     = random_string.radarr_api_key.result,
             },
           )]
 
           volume_mount {
-            name = "${local.radarr_app}-config"
+            name       = "${local.radarr_app}-config"
             mount_path = "/config"
           }
         }
 
         init_container {
-          name = "${local.sonarr_app}-init"
-          image = "bitnami/kubectl:latest"
+          name    = "${local.sonarr_app}-init"
+          image   = "bitnami/kubectl:latest"
           command = ["/bin/sh", "-c"]
           args = [templatefile(
             "${var.config_path}/scripts/init-arr.sh",
             {
               config_file = "/config/config.xml",
-              api_key = random_string.sonarr_api_key.result,
+              api_key     = random_string.sonarr_api_key.result,
             },
           )]
 
           volume_mount {
-            name = "${local.sonarr_app}-config"
+            name       = "${local.sonarr_app}-config"
             mount_path = "/config"
           }
         }
 
         init_container {
-          name = "${local.prowlarr_app}-init"
-          image = "bitnami/kubectl:latest"
+          name    = "${local.prowlarr_app}-init"
+          image   = "bitnami/kubectl:latest"
           command = ["/bin/sh", "-c"]
           args = [templatefile(
             "${var.config_path}/scripts/init-arr.sh",
             {
               config_file = "/config/config.xml",
-              api_key = random_string.prowlarr_api_key.result,
+              api_key     = random_string.prowlarr_api_key.result,
             },
           )]
 
           volume_mount {
-            name = "${local.prowlarr_app}-config"
+            name       = "${local.prowlarr_app}-config"
             mount_path = "/config"
           }
         }
@@ -267,7 +267,7 @@ resource "kubernetes_deployment" "media_management" {
 
 resource "kubernetes_deployment" "overseerr" {
   metadata {
-    name = local.overseerr_app
+    name      = local.overseerr_app
     namespace = var.namespace
 
     labels = {
@@ -293,12 +293,12 @@ resource "kubernetes_deployment" "overseerr" {
         volume {
           name = "overseerr-config"
           persistent_volume_claim {
-            claim_name = kubernetes_persistent_volume_claim.overseerr_config.metadata.0.name
+            claim_name = kubernetes_persistent_volume_claim.overseerr_config.metadata[0].name
           }
         }
 
         container {
-          name = local.overseerr_app
+          name  = local.overseerr_app
           image = "lscr.io/linuxserver/overseerr:latest"
 
           port {
@@ -306,12 +306,12 @@ resource "kubernetes_deployment" "overseerr" {
           }
 
           volume_mount {
-            name = "overseerr-config"
+            name       = "overseerr-config"
             mount_path = "/config"
           }
         }
       }
     }
   }
-  
+
 }

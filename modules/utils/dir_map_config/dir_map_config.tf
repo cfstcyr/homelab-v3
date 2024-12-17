@@ -14,7 +14,7 @@ locals {
 
 resource "kubernetes_config_map" "config" {
   metadata {
-    name = var.name
+    name      = var.name
     namespace = var.namespace
   }
 
@@ -26,5 +26,5 @@ output "hash" {
 }
 
 output "config_map" {
-  value = kubernetes_config_map.config.metadata.0.name
+  value = kubernetes_config_map.config.metadata[0].name
 }

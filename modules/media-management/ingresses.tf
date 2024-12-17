@@ -1,18 +1,18 @@
 resource "kubernetes_ingress_v1" "sonarr" {
   metadata {
-    name = local.sonarr_app
+    name      = local.sonarr_app
     namespace = var.namespace
 
     annotations = {
-      "gethomepage.dev/enabled": "true",
-      "gethomepage.dev/name": "Sonarr",
-      "gethomepage.dev/icon": "sonarr",
-      "gethomepage.dev/group": "Management",
-      "gethomepage.dev/weight": "15",
-      "gethomepage.dev/widget.type": "sonarr",
-      "gethomepage.dev/widget.url": "http://${local.sonarr_app}:8989",
-      "gethomepage.dev/widget.key": random_string.sonarr_api_key.result,
-      "gethomepage.dev/pod-selector": "",
+      "gethomepage.dev/enabled" : "true",
+      "gethomepage.dev/name" : "Sonarr",
+      "gethomepage.dev/icon" : "sonarr",
+      "gethomepage.dev/group" : "Management",
+      "gethomepage.dev/weight" : "15",
+      "gethomepage.dev/widget.type" : "sonarr",
+      "gethomepage.dev/widget.url" : "http://${local.sonarr_app}:8989",
+      "gethomepage.dev/widget.key" : random_string.sonarr_api_key.result,
+      "gethomepage.dev/pod-selector" : "",
     }
   }
 
@@ -25,7 +25,7 @@ resource "kubernetes_ingress_v1" "sonarr" {
         http {
           path {
             path = "/"
-            
+
             backend {
               service {
                 name = "sonarr"
@@ -43,19 +43,19 @@ resource "kubernetes_ingress_v1" "sonarr" {
 
 resource "kubernetes_ingress_v1" "radarr" {
   metadata {
-    name = "radarr"
+    name      = "radarr"
     namespace = var.namespace
 
     annotations = {
-      "gethomepage.dev/enabled": "true",
-      "gethomepage.dev/name": "Radarr",
-      "gethomepage.dev/icon": "radarr",
-      "gethomepage.dev/group": "Management",
-      "gethomepage.dev/weight": "10",
-      "gethomepage.dev/widget.type": "radarr",
-      "gethomepage.dev/widget.url": "http://${local.radarr_app}:7878",
-      "gethomepage.dev/widget.key": random_string.radarr_api_key.result,
-      "gethomepage.dev/pod-selector": "",
+      "gethomepage.dev/enabled" : "true",
+      "gethomepage.dev/name" : "Radarr",
+      "gethomepage.dev/icon" : "radarr",
+      "gethomepage.dev/group" : "Management",
+      "gethomepage.dev/weight" : "10",
+      "gethomepage.dev/widget.type" : "radarr",
+      "gethomepage.dev/widget.url" : "http://${local.radarr_app}:7878",
+      "gethomepage.dev/widget.key" : random_string.radarr_api_key.result,
+      "gethomepage.dev/pod-selector" : "",
     }
   }
 
@@ -68,7 +68,7 @@ resource "kubernetes_ingress_v1" "radarr" {
         http {
           path {
             path = "/"
-            
+
             backend {
               service {
                 name = "radarr"
@@ -86,18 +86,18 @@ resource "kubernetes_ingress_v1" "radarr" {
 
 resource "kubernetes_ingress_v1" "transmission" {
   metadata {
-    name = "transmission"
+    name      = "transmission"
     namespace = var.namespace
 
     annotations = {
-      "gethomepage.dev/enabled": "true",
-      "gethomepage.dev/name": "Transmission",
-      "gethomepage.dev/icon": "transmission",
-      "gethomepage.dev/group": "Tools",
-      "gethomepage.dev/weight": "10",
-      "gethomepage.dev/widget.type": "transmission",
-      "gethomepage.dev/widget.url": "http://${local.transmission_app}:9091",
-      "gethomepage.dev/pod-selector": "",
+      "gethomepage.dev/enabled" : "true",
+      "gethomepage.dev/name" : "Transmission",
+      "gethomepage.dev/icon" : "transmission",
+      "gethomepage.dev/group" : "Tools",
+      "gethomepage.dev/weight" : "10",
+      "gethomepage.dev/widget.type" : "transmission",
+      "gethomepage.dev/widget.url" : "http://${local.transmission_app}:9091",
+      "gethomepage.dev/pod-selector" : "",
     }
   }
 
@@ -110,7 +110,7 @@ resource "kubernetes_ingress_v1" "transmission" {
         http {
           path {
             path = "/"
-            
+
             backend {
               service {
                 name = "transmission"
@@ -128,19 +128,19 @@ resource "kubernetes_ingress_v1" "transmission" {
 
 resource "kubernetes_ingress_v1" "prowlarr" {
   metadata {
-    name = "prowlarr"
+    name      = "prowlarr"
     namespace = var.namespace
 
     annotations = {
-      "gethomepage.dev/enabled": "true",
-      "gethomepage.dev/name": "Prowlarr",
-      "gethomepage.dev/icon": "prowlarr",
-      "gethomepage.dev/group": "Management",
-      "gethomepage.dev/widget.type": "prowlarr",
-      "gethomepage.dev/weight": "50",
-      "gethomepage.dev/widget.url": "http://${local.prowlarr_app}:9696",
-      "gethomepage.dev/widget.key": random_string.prowlarr_api_key.result,
-      "gethomepage.dev/pod-selector": "",
+      "gethomepage.dev/enabled" : "true",
+      "gethomepage.dev/name" : "Prowlarr",
+      "gethomepage.dev/icon" : "prowlarr",
+      "gethomepage.dev/group" : "Management",
+      "gethomepage.dev/widget.type" : "prowlarr",
+      "gethomepage.dev/weight" : "50",
+      "gethomepage.dev/widget.url" : "http://${local.prowlarr_app}:9696",
+      "gethomepage.dev/widget.key" : random_string.prowlarr_api_key.result,
+      "gethomepage.dev/pod-selector" : "",
     }
   }
 
@@ -153,7 +153,7 @@ resource "kubernetes_ingress_v1" "prowlarr" {
         http {
           path {
             path = "/"
-            
+
             backend {
               service {
                 name = "prowlarr"
@@ -171,16 +171,16 @@ resource "kubernetes_ingress_v1" "prowlarr" {
 
 resource "kubernetes_ingress_v1" "overseerr" {
   metadata {
-    name = "overseerr"
+    name      = "overseerr"
     namespace = var.namespace
 
     annotations = {
-      "gethomepage.dev/enabled": "true",
-      "gethomepage.dev/name": "Overseerr",
-      "gethomepage.dev/icon": "overseerr",
-      "gethomepage.dev/group": "Management",
-      "gethomepage.dev/weight": "5",
-      "gethomepage.dev/pod-selector": "",
+      "gethomepage.dev/enabled" : "true",
+      "gethomepage.dev/name" : "Overseerr",
+      "gethomepage.dev/icon" : "overseerr",
+      "gethomepage.dev/group" : "Management",
+      "gethomepage.dev/weight" : "5",
+      "gethomepage.dev/pod-selector" : "",
     }
   }
 
@@ -193,7 +193,7 @@ resource "kubernetes_ingress_v1" "overseerr" {
         http {
           path {
             path = "/"
-            
+
             backend {
               service {
                 name = "overseerr"

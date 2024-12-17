@@ -1,6 +1,6 @@
 resource "kubernetes_service" "vpn" {
   metadata {
-    name = "vpn"
+    name      = "vpn"
     namespace = var.namespace
     labels = {
       app = var.media_management_app
@@ -21,7 +21,7 @@ resource "kubernetes_service" "vpn" {
 
 resource "kubernetes_service" "sonarr" {
   metadata {
-    name = "sonarr"
+    name      = "sonarr"
     namespace = var.namespace
 
     labels = {
@@ -43,7 +43,7 @@ resource "kubernetes_service" "sonarr" {
 
 resource "kubernetes_service" "radarr" {
   metadata {
-    name = "radarr"
+    name      = "radarr"
     namespace = var.namespace
 
     labels = {
@@ -65,7 +65,7 @@ resource "kubernetes_service" "radarr" {
 
 resource "kubernetes_service" "prowlarr" {
   metadata {
-    name = "prowlarr"
+    name      = "prowlarr"
     namespace = var.namespace
 
     labels = {
@@ -87,7 +87,7 @@ resource "kubernetes_service" "prowlarr" {
 
 resource "kubernetes_service" "transmission" {
   metadata {
-    name = "transmission"
+    name      = "transmission"
     namespace = var.namespace
 
     labels = {
@@ -109,7 +109,7 @@ resource "kubernetes_service" "transmission" {
 
 resource "kubernetes_service" "overseerr" {
   metadata {
-    name = "overseerr"
+    name      = "overseerr"
     namespace = var.namespace
 
     labels = {

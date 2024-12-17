@@ -20,7 +20,7 @@ locals {
 
 resource "kubernetes_config_map" "buildarr_config" {
   metadata {
-    name = "${local.buildarr_app}-config"
+    name      = "${local.buildarr_app}-config"
     namespace = var.namespace
   }
 

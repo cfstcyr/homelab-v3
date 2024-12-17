@@ -1,26 +1,26 @@
 variable "name" {
-  type = string
+  type        = string
   description = "The name of the config map"
 }
 
 variable "namespace" {
-  type = string
+  type        = string
   description = "The namespace to create the config map in"
 }
 
 variable "dir" {
-  type = string
+  type        = string
   description = "The directory to read files from"
 }
 
 variable "glob" {
-  type = string
+  type        = string
   description = "The glob pattern to match files"
-  default = "*"
+  default     = "*"
 }
 
 variable "template_vars" {
-  type = map
+  type        = map(any)
   description = "The variables to pass to the template"
-  default = {}
+  default     = {}
 }

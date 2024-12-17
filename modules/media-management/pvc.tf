@@ -1,6 +1,6 @@
 resource "kubernetes_persistent_volume_claim" "radarr_config" {
   metadata {
-    name = "radarr-config"
+    name      = "radarr-config"
     namespace = var.namespace
   }
 
@@ -16,7 +16,7 @@ resource "kubernetes_persistent_volume_claim" "radarr_config" {
 
 resource "kubernetes_persistent_volume_claim" "sonarr_config" {
   metadata {
-    name = "sonarr-config"
+    name      = "sonarr-config"
     namespace = var.namespace
   }
 
@@ -32,7 +32,7 @@ resource "kubernetes_persistent_volume_claim" "sonarr_config" {
 
 resource "kubernetes_persistent_volume_claim" "prowlarr_config" {
   metadata {
-    name = "prowlarr-config"
+    name      = "prowlarr-config"
     namespace = var.namespace
   }
 
@@ -48,7 +48,7 @@ resource "kubernetes_persistent_volume_claim" "prowlarr_config" {
 
 resource "kubernetes_persistent_volume_claim" "transmission_config" {
   metadata {
-    name = "transmission-config"
+    name      = "transmission-config"
     namespace = var.namespace
   }
 
@@ -64,7 +64,7 @@ resource "kubernetes_persistent_volume_claim" "transmission_config" {
 
 resource "kubernetes_persistent_volume_claim" "overseerr_config" {
   metadata {
-    name = "overseerr-config"
+    name      = "overseerr-config"
     namespace = var.namespace
   }
 
@@ -76,5 +76,5 @@ resource "kubernetes_persistent_volume_claim" "overseerr_config" {
       }
     }
   }
-  
+
 }

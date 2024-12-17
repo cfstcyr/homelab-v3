@@ -24,21 +24,6 @@ variable "media_management_app" {
   default     = "media-management"
 }
 
-variable "radarr_api_key" {
-  type        = string
-  description = "API key for Radarr"
-}
-
-variable "sonarr_api_key" {
-  type        = string
-  description = "API key for Sonarr"
-}
-
-variable "prowlarr_api_key" {
-  type        = string
-  description = "API key for Prowlarr"
-}
-
 # Routing
 
 variable "reverse_proxy_domains" {

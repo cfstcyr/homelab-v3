@@ -1,6 +1,6 @@
 resource "kubernetes_deployment" "homepage" {
   metadata {
-    name = var.homepage_app
+    name      = var.homepage_app
     namespace = var.namespace
 
     labels = {
@@ -20,13 +20,13 @@ resource "kubernetes_deployment" "homepage" {
     template {
       metadata {
         labels = {
-          app = var.homepage_app
+          app         = var.homepage_app
           config_hash = module.homepage_config.hash
         }
       }
 
       spec {
-        service_account_name = kubernetes_service_account.homepage.metadata.0.name
+        service_account_name = kubernetes_service_account.homepage.metadata[0].name
 
         volume {
           name = "${var.homepage_app}-config"
@@ -45,7 +45,7 @@ resource "kubernetes_deployment" "homepage" {
         }
 
         container {
-          name = var.homepage_app
+          name  = var.homepage_app
           image = "ghcr.io/gethomepage/homepage:latest"
 
           port {
@@ -53,12 +53,12 @@ resource "kubernetes_deployment" "homepage" {
           }
 
           volume_mount {
-            name = "${var.homepage_app}-config"
+            name       = "${var.homepage_app}-config"
             mount_path = "/app/config"
           }
 
           volume_mount {
-            name = "${var.homepage_app}-public"
+            name       = "${var.homepage_app}-public"
             mount_path = "/app/public/images"
           }
         }
@@ -69,7 +69,7 @@ resource "kubernetes_deployment" "homepage" {
 
 resource "kubernetes_service" "homepage" {
   metadata {
-    name = var.homepage_app
+    name      = var.homepage_app
     namespace = var.namespace
 
     labels = {
@@ -83,7 +83,7 @@ resource "kubernetes_service" "homepage" {
     }
 
     port {
-      port = 80
+      port        = 80
       target_port = 3000
     }
   }
@@ -91,7 +91,7 @@ resource "kubernetes_service" "homepage" {
 
 resource "kubernetes_ingress_v1" "homepage" {
   metadata {
-    name = var.homepage_app
+    name      = var.homepage_app
     namespace = var.namespace
   }
 

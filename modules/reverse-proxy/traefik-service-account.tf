@@ -7,7 +7,7 @@ resource "kubernetes_service_account" "traefik" {
 
 resource "kubernetes_role" "traefik-ingress" {
   metadata {
-    name = "${var.traefik_app}-ingress-controller"
+    name      = "${var.traefik_app}-ingress-controller"
     namespace = var.namespace
   }
 
@@ -28,7 +28,7 @@ resource "kubernetes_role" "traefik-ingress" {
 
 resource "kubernetes_role_binding" "traefik" {
   metadata {
-    name = "${var.traefik_app}-ingress-controller"
+    name      = "${var.traefik_app}-ingress-controller"
     namespace = var.namespace
   }
 
