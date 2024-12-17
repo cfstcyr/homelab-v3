@@ -11,7 +11,7 @@ resource "kubernetes_ingress_v1" "sonarr" {
       "gethomepage.dev/weight" : "15",
       "gethomepage.dev/widget.type" : "sonarr",
       "gethomepage.dev/widget.url" : "http://${local.sonarr_app}:8989",
-      "gethomepage.dev/widget.key" : random_string.sonarr_api_key.result,
+      "gethomepage.dev/widget.key" : random_id.sonarr_api_key.hex,
       "gethomepage.dev/pod-selector" : "",
     }
   }
@@ -54,7 +54,7 @@ resource "kubernetes_ingress_v1" "radarr" {
       "gethomepage.dev/weight" : "10",
       "gethomepage.dev/widget.type" : "radarr",
       "gethomepage.dev/widget.url" : "http://${local.radarr_app}:7878",
-      "gethomepage.dev/widget.key" : random_string.radarr_api_key.result,
+      "gethomepage.dev/widget.key" : random_id.radarr_api_key.hex,
       "gethomepage.dev/pod-selector" : "",
     }
   }
@@ -139,7 +139,7 @@ resource "kubernetes_ingress_v1" "prowlarr" {
       "gethomepage.dev/widget.type" : "prowlarr",
       "gethomepage.dev/weight" : "50",
       "gethomepage.dev/widget.url" : "http://${local.prowlarr_app}:9696",
-      "gethomepage.dev/widget.key" : random_string.prowlarr_api_key.result,
+      "gethomepage.dev/widget.key" : random_id.prowlarr_api_key.hex,
       "gethomepage.dev/pod-selector" : "",
     }
   }

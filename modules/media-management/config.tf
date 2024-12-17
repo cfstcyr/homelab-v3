@@ -3,15 +3,15 @@ locals {
     "buildarr.yml" = templatefile("${var.config_path}/${local.buildarr_app}/buildarr.yml", {})
     "radarr.yml" = templatefile(
       "${var.config_path}/${local.buildarr_app}/radarr.yml",
-      { radarr_api_key = random_string.radarr_api_key.result },
+      { radarr_api_key = random_id.radarr_api_key.hex },
     )
     "sonarr.yml" = templatefile(
       "${var.config_path}/${local.buildarr_app}/sonarr.yml",
-      { sonarr_api_key = random_string.sonarr_api_key.result },
+      { sonarr_api_key = random_id.sonarr_api_key.hex },
     )
     "prowlarr.yml" = templatefile(
       "${var.config_path}/${local.buildarr_app}/prowlarr.yml",
-      { prowlarr_api_key = random_string.prowlarr_api_key.result },
+      { prowlarr_api_key = random_id.prowlarr_api_key.hex },
     )
   }
 

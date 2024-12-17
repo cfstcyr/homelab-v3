@@ -215,7 +215,7 @@ resource "kubernetes_deployment" "media_management" {
             "${var.config_path}/scripts/init-arr.sh",
             {
               config_file = "/config/config.xml",
-              api_key     = random_string.radarr_api_key.result,
+              api_key     = random_id.radarr_api_key.hex,
             },
           )]
 
@@ -233,7 +233,7 @@ resource "kubernetes_deployment" "media_management" {
             "${var.config_path}/scripts/init-arr.sh",
             {
               config_file = "/config/config.xml",
-              api_key     = random_string.sonarr_api_key.result,
+              api_key     = random_id.sonarr_api_key.hex,
             },
           )]
 
@@ -251,7 +251,7 @@ resource "kubernetes_deployment" "media_management" {
             "${var.config_path}/scripts/init-arr.sh",
             {
               config_file = "/config/config.xml",
-              api_key     = random_string.prowlarr_api_key.result,
+              api_key     = random_id.prowlarr_api_key.hex,
             },
           )]
 

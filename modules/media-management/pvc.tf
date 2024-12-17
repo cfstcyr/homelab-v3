@@ -76,5 +76,4 @@ resource "kubernetes_persistent_volume_claim" "overseerr_config" {
       }
     }
   }
-
 }
