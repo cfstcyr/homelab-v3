@@ -2,10 +2,20 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/settings
 
-logpath: /logs
-instanceName: ${instanceName}
+title: Homelab
 statusStyle: dot
 headerStyle: clean
+background:
+  image: /images/background.webp
+  blur: md
+  opacity: 25
+color: slate
+theme: dark
+
+hideVersion: true
+
+logpath: /logs
+instanceName: ${instanceName}
 
 layout:
   Media:

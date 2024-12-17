@@ -36,6 +36,14 @@ resource "kubernetes_deployment" "homepage" {
           }
         }
 
+        volume {
+          name = "${var.homepage_app}-public"
+
+          host_path {
+            path = "${var.config_path}/${var.homepage_app}-public"
+          }
+        }
+
         container {
           name = var.homepage_app
           image = "ghcr.io/gethomepage/homepage:latest"
@@ -47,6 +55,11 @@ resource "kubernetes_deployment" "homepage" {
           volume_mount {
             name = "${var.homepage_app}-config"
             mount_path = "/app/config"
+          }
+
+          volume_mount {
+            name = "${var.homepage_app}-public"
+            mount_path = "/app/public/images"
           }
         }
       }
