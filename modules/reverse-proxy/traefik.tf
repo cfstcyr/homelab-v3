@@ -74,9 +74,9 @@ resource "kubernetes_deployment" "traefik" {
   }
 }
 
-resource "kubernetes_service" "traefik" {
+resource "kubernetes_service" "traefik_http" {
   metadata {
-    name      = var.traefik_app
+    name      = "${var.traefik_app}-http"
     namespace = var.namespace
   }
 
@@ -94,7 +94,26 @@ resource "kubernetes_service" "traefik" {
     }
 
     port {
-      name        = "dashboard"
+      name        = "https"
+      port        = 443
+      target_port = 443
+    }
+  }
+}
+
+resource "kubernetes_service" "traefik_dashboard" {
+  metadata {
+    name      = "${var.traefik_app}-dashboard"
+    namespace = var.namespace
+  }
+
+  spec {
+    selector = {
+      app = var.traefik_app
+    }
+
+    port {
+      name        = "http"
       port        = 8080
       target_port = 8080
     }
@@ -113,7 +132,7 @@ resource "kubernetes_ingress_v1" "dashboard" {
       "gethomepage.dev/group" : "Tools",
       "gethomepage.dev/weight" : "30",
       "gethomepage.dev/widget.type" : "traefik",
-      "gethomepage.dev/widget.url" : "http://${var.traefik_app}:8080",
+      "gethomepage.dev/widget.url" : "http://${kubernetes_service.traefik_dashboard.metadata[0].name}:8080",
       "gethomepage.dev/pod-selector" : "",
     }
   }
@@ -131,7 +150,7 @@ resource "kubernetes_ingress_v1" "dashboard" {
 
             backend {
               service {
-                name = "traefik"
+                name = kubernetes_service.traefik_dashboard.metadata[0].name
                 port {
                   number = 8080
                 }
