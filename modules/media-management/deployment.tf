@@ -109,6 +109,10 @@ resource "kubernetes_deployment" "media_management" {
             mount_path = "/dev/net/tun"
           }
           
+          port {
+            container_port = 8000
+          }
+
           dynamic "env" {
             for_each = var.vpn_env
 
@@ -116,7 +120,6 @@ resource "kubernetes_deployment" "media_management" {
               name = env.key
               value = env.value
             }
-            
           }
         }
 

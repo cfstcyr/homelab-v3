@@ -1,3 +1,24 @@
+resource "kubernetes_service" "vpn" {
+  metadata {
+    name = "vpn"
+    namespace = var.namespace
+    labels = {
+      app = var.media_management_app
+    }
+  }
+
+  spec {
+    selector = {
+      app = var.media_management_app
+    }
+
+    port {
+      port        = 8000
+      target_port = 8000
+    }
+  }
+}
+
 resource "kubernetes_service" "sonarr" {
   metadata {
     name = "sonarr"

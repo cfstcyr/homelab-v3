@@ -1,3 +1,10 @@
 ---
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/services
+
+- Tools:
+  - VPN:
+      icon: gluetun
+      widget:
+        type: gluetun
+        url: http://vpn:8000
