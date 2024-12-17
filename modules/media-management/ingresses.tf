@@ -196,7 +196,7 @@ resource "kubernetes_ingress_v1" "overseerr" {
 
             backend {
               service {
-                name = "overseerr"
+                name = local.overseerr_app
                 port {
                   number = 5055
                 }

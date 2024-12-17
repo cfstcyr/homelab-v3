@@ -109,17 +109,17 @@ resource "kubernetes_service" "transmission" {
 
 resource "kubernetes_service" "overseerr" {
   metadata {
-    name      = "overseerr"
+    name      = local.overseerr_app
     namespace = var.namespace
 
     labels = {
-      app = var.media_management_app
+      app = local.overseerr_app
     }
   }
 
   spec {
     selector = {
-      app = var.media_management_app
+      app = local.overseerr_app
     }
 
     port {
