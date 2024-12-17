@@ -168,3 +168,43 @@ resource "kubernetes_ingress_v1" "prowlarr" {
     }
   }
 }
+
+resource "kubernetes_ingress_v1" "overseerr" {
+  metadata {
+    name = "overseerr"
+    namespace = var.namespace
+
+    annotations = {
+      "gethomepage.dev/enabled": "true",
+      "gethomepage.dev/name": "Overseerr",
+      "gethomepage.dev/icon": "overseerr",
+      "gethomepage.dev/group": "Management",
+      "gethomepage.dev/weight": "5",
+      "gethomepage.dev/pod-selector": "",
+    }
+  }
+
+  spec {
+    dynamic "rule" {
+      for_each = var.reverse_proxy_domains
+
+      content {
+        host = var.overseerr_subdomain != null ? "${var.overseerr_subdomain}.${rule.value}" : rule.value
+        http {
+          path {
+            path = "/"
+            
+            backend {
+              service {
+                name = "overseerr"
+                port {
+                  number = 5055
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

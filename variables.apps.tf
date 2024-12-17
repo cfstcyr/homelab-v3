@@ -75,3 +75,12 @@ variable "transmission_subdomain" {
   nullable    = true
   default     = "transmission"
 }
+
+# Overseerr  =================
+
+variable "overseerr_subdomain" {
+  type        = string
+  description = "Domain for Overseerr"
+  nullable    = true
+  default     = "overseerr"
+}

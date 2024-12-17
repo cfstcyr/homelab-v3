@@ -106,3 +106,25 @@ resource "kubernetes_service" "transmission" {
     }
   }
 }
+
+resource "kubernetes_service" "overseerr" {
+  metadata {
+    name = "overseerr"
+    namespace = var.namespace
+
+    labels = {
+      app = var.media_management_app
+    }
+  }
+
+  spec {
+    selector = {
+      app = var.media_management_app
+    }
+
+    port {
+      port        = 5055
+      target_port = 5055
+    }
+  }
+}

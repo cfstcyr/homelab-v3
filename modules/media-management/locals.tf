@@ -5,4 +5,5 @@ locals {
   prowlarr_app = "prowlarr"
   transmission_app = "transmission"
   buildarr_app = "buildarr"
+  overseerr_app = "overseerr"
 }

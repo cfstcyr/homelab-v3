@@ -66,6 +66,11 @@ variable "prowlarr_subdomain" {
   description = "Domain for Prowlarr"
 }
 
+variable "overseerr_subdomain" {
+  type        = string
+  description = "Domain for Overseerr"
+}
+
 # Paths
 
 variable "library_movies_dir" {

@@ -264,3 +264,54 @@ resource "kubernetes_deployment" "media_management" {
     }
   }
 }
+
+resource "kubernetes_deployment" "overseerr" {
+  metadata {
+    name = local.overseerr_app
+    namespace = var.namespace
+
+    labels = {
+      app = local.overseerr_app
+    }
+  }
+
+  spec {
+    selector {
+      match_labels = {
+        app = local.overseerr_app
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          app = local.overseerr_app
+        }
+      }
+
+      spec {
+        volume {
+          name = "overseerr-config"
+          persistent_volume_claim {
+            claim_name = kubernetes_persistent_volume_claim.overseerr_config.metadata.0.name
+          }
+        }
+
+        container {
+          name = local.overseerr_app
+          image = "lscr.io/linuxserver/overseerr:latest"
+
+          port {
+            container_port = 5055
+          }
+
+          volume_mount {
+            name = "overseerr-config"
+            mount_path = "/config"
+          }
+        }
+      }
+    }
+  }
+  
+}
