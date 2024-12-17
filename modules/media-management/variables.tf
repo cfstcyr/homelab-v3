@@ -56,6 +56,11 @@ variable "overseerr_subdomain" {
   description = "Domain for Overseerr"
 }
 
+variable "overseerr_api_key" {
+  type        = string
+  description = "Overseerr API Key"
+}
+
 # Paths
 
 variable "library_movies_dir" {

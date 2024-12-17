@@ -174,14 +174,21 @@ resource "kubernetes_ingress_v1" "overseerr" {
     name      = "overseerr"
     namespace = var.namespace
 
-    annotations = {
-      "gethomepage.dev/enabled" : "true",
-      "gethomepage.dev/name" : "Overseerr",
-      "gethomepage.dev/icon" : "overseerr",
-      "gethomepage.dev/group" : "Management",
-      "gethomepage.dev/weight" : "5",
-      "gethomepage.dev/pod-selector" : "",
-    }
+    annotations = merge(
+      {
+        "gethomepage.dev/enabled" : "true",
+        "gethomepage.dev/name" : "Overseerr",
+        "gethomepage.dev/icon" : "overseerr",
+        "gethomepage.dev/group" : "Management",
+        "gethomepage.dev/weight" : "5",
+        "gethomepage.dev/pod-selector" : "",
+      },
+      var.overseerr_api_key != null ? {
+        "gethomepage.dev/widget.type" : "overseerr",
+        "gethomepage.dev/widget.url" : "http://${local.overseerr_app}:5055",
+        "gethomepage.dev/widget.key" : var.overseerr_api_key,
+      } : {},
+    )
   }
 
   spec {

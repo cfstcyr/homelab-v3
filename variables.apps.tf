@@ -61,6 +61,13 @@ variable "overseerr_subdomain" {
   default     = "overseerr"
 }
 
+variable "overseerr_api_key" {
+  type        = string
+  description = "Overseerr API Key"
+  nullable    = true
+  default     = null
+}
+
 # Pi-Hole ==================
 
 # variable "pi_hole_subdomain" {

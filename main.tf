@@ -37,6 +37,7 @@ module "media_management" {
   prowlarr_subdomain     = var.prowlarr_subdomain
   transmission_subdomain = var.transmission_subdomain
   overseerr_subdomain    = var.overseerr_subdomain
+  overseerr_api_key      = var.overseerr_api_key
 
   library_movies_dir = var.library_movies_dir
   library_tv_dir     = var.library_tv_dir
