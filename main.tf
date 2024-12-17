@@ -4,6 +4,12 @@ resource "kubernetes_namespace" "homelab" {
   }
 }
 
+module "metrics_server" {
+  source = "./modules/metrics-server"
+
+  namespace = kubernetes_namespace.homelab.metadata[0].name
+}
+
 module "reverse-proxy" {
   source = "./modules/reverse-proxy"
 
