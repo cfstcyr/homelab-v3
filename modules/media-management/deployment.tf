@@ -140,6 +140,11 @@ resource "kubernetes_deployment" "media_management" {
             name       = "${local.sonarr_app}-config"
             mount_path = "/config"
           }
+
+          volume_mount {
+            name       = "downloads"
+            mount_path = "/downloads"
+          }
         }
 
         container {
@@ -158,6 +163,11 @@ resource "kubernetes_deployment" "media_management" {
           volume_mount {
             name       = "${local.radarr_app}-config"
             mount_path = "/config"
+          }
+
+          volume_mount {
+            name       = "downloads"
+            mount_path = "/downloads"
           }
         }
 
