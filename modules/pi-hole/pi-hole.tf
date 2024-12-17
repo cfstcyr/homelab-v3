@@ -24,7 +24,7 @@ resource "kubernetes_deployment" "pi_hole" {
     template {
       metadata {
         labels = {
-          app            = var.pi_hole_app
+          app = var.pi_hole_app
         }
       }
 
@@ -38,7 +38,7 @@ resource "kubernetes_deployment" "pi_hole" {
         }
 
         container {
-          name = var.pi_hole_app
+          name  = var.pi_hole_app
           image = "pihole/pihole:latest"
 
           security_context {
@@ -48,17 +48,17 @@ resource "kubernetes_deployment" "pi_hole" {
           }
 
           env {
-            name = "WEBPASSWORD"
+            name  = "WEBPASSWORD"
             value = "123"
           }
 
           env {
-            name = "VIRTUAL_HOST"
+            name  = "VIRTUAL_HOST"
             value = join(",", local.pi_hole_hosts)
           }
 
           env {
-            name = "DNSMASQ_LISTENING"
+            name  = "DNSMASQ_LISTENING"
             value = "all"
           }
 
@@ -77,7 +77,7 @@ resource "kubernetes_deployment" "pi_hole" {
           }
 
           volume_mount {
-            name = "${var.pi_hole_app}-dnsmasq"
+            name       = "${var.pi_hole_app}-dnsmasq"
             mount_path = "/etc/dnsmasq.d"
           }
         }
@@ -126,14 +126,14 @@ resource "kubernetes_service" "pi_hole_dns" {
     type = "LoadBalancer"
 
     port {
-      name       = "dns-tcp"
+      name        = "dns-tcp"
       port        = 5053
       target_port = 53
       protocol    = "TCP"
     }
 
     port {
-      name       = "dns-udp"
+      name        = "dns-udp"
       port        = 5053
       target_port = 53
       protocol    = "UDP"
