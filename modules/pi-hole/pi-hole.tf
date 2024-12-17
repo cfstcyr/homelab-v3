@@ -68,6 +68,12 @@ resource "kubernetes_deployment" "pi_hole" {
 
           port {
             container_port = 53
+            protocol       = "TCP"
+          }
+
+          port {
+            container_port = 53
+            protocol       = "UDP"
           }
 
           volume_mount {
@@ -120,9 +126,17 @@ resource "kubernetes_service" "pi_hole_dns" {
     type = "LoadBalancer"
 
     port {
-      name = "dns"
+      name       = "dns-tcp"
       port        = 5053
       target_port = 53
+      protocol    = "TCP"
+    }
+
+    port {
+      name       = "dns-udp"
+      port        = 5053
+      target_port = 53
+      protocol    = "UDP"
     }
   }
 }

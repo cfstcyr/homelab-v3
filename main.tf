@@ -42,3 +42,13 @@ module "media_management" {
   library_tv_dir     = var.library_tv_dir
   downloads_dir      = var.downloads_dir
 }
+
+# module "pi-hole" {
+#   source = "./modules/pi-hole"
+
+#   namespace   = kubernetes_namespace.homelab.metadata[0].name
+#   config_path = abspath("${path.module}/config")
+
+#   reverse_proxy_domains = var.reverse_proxy_domains
+#   pi_hole_subdomain     = var.pi_hole_subdomain
+# }

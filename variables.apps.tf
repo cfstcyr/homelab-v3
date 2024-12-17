@@ -60,3 +60,12 @@ variable "overseerr_subdomain" {
   nullable    = true
   default     = "overseerr"
 }
+
+# Pi-Hole ==================
+
+# variable "pi_hole_subdomain" {
+#   type        = string
+#   description = "Domain for Pi-hole"
+#   nullable    = true
+#   default     = "pihole"
+# }
