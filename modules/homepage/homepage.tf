@@ -21,6 +21,7 @@ resource "kubernetes_deployment" "homepage" {
       metadata {
         labels = {
           app = var.homepage_app
+          config_hash = module.homepage_config.hash
         }
       }
 
@@ -31,7 +32,7 @@ resource "kubernetes_deployment" "homepage" {
           name = "${var.homepage_app}-config"
 
           config_map {
-            name = kubernetes_config_map.homepage_config.metadata.0.name
+            name = module.homepage_config.config_map
           }
         }
 

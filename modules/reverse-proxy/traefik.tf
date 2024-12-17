@@ -21,8 +21,8 @@ resource "kubernetes_deployment" "traefik" {
       metadata {
         labels = {
           app = var.traefik_app
-          config_hash = local.traefik_config_hash
-          providers_hash = local.traefik_config_providers_hash
+          config_hash = module.traefik_config.hash
+          providers_hash = module.traefik_config_providers.hash
         }
       }
 
@@ -33,7 +33,7 @@ resource "kubernetes_deployment" "traefik" {
           name = "${var.traefik_app}-config"
 
           config_map {
-            name = kubernetes_config_map.traefik_config.metadata.0.name
+            name = module.traefik_config.config_map
           }
         }
 
@@ -41,7 +41,7 @@ resource "kubernetes_deployment" "traefik" {
           name = "${var.traefik_app}-config-providers"
 
           config_map {
-            name = kubernetes_config_map.traefik_config_providers.metadata.0.name
+            name = module.traefik_config_providers.config_map
           }
         }
 
