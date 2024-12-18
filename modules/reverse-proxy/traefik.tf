@@ -145,6 +145,7 @@ resource "kubernetes_ingress_v1" "dashboard" {
     namespace = var.namespace
 
     annotations = {
+      "traefik.ingress.kubernetes.io/router.entrypoints" = "websecure"
       "gethomepage.dev/enabled" : "true",
       "gethomepage.dev/name" : "Traefik",
       "gethomepage.dev/icon" : "traefik",

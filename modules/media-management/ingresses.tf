@@ -4,6 +4,7 @@ resource "kubernetes_ingress_v1" "sonarr" {
     namespace = var.namespace
 
     annotations = {
+      "traefik.ingress.kubernetes.io/router.entrypoints" = "websecure"
       "gethomepage.dev/enabled" : "true",
       "gethomepage.dev/name" : "Sonarr",
       "gethomepage.dev/icon" : "sonarr",
@@ -47,6 +48,7 @@ resource "kubernetes_ingress_v1" "radarr" {
     namespace = var.namespace
 
     annotations = {
+      "traefik.ingress.kubernetes.io/router.entrypoints" = "websecure"
       "gethomepage.dev/enabled" : "true",
       "gethomepage.dev/name" : "Radarr",
       "gethomepage.dev/icon" : "radarr",
@@ -90,6 +92,7 @@ resource "kubernetes_ingress_v1" "transmission" {
     namespace = var.namespace
 
     annotations = {
+      "traefik.ingress.kubernetes.io/router.entrypoints" = "websecure"
       "gethomepage.dev/enabled" : "true",
       "gethomepage.dev/name" : "Transmission",
       "gethomepage.dev/icon" : "transmission",
@@ -132,6 +135,7 @@ resource "kubernetes_ingress_v1" "prowlarr" {
     namespace = var.namespace
 
     annotations = {
+      "traefik.ingress.kubernetes.io/router.entrypoints" = "websecure"
       "gethomepage.dev/enabled" : "true",
       "gethomepage.dev/name" : "Prowlarr",
       "gethomepage.dev/icon" : "prowlarr",
@@ -176,6 +180,7 @@ resource "kubernetes_ingress_v1" "overseerr" {
 
     annotations = merge(
       {
+        "traefik.ingress.kubernetes.io/router.entrypoints" = "websecure"
         "gethomepage.dev/enabled" : "true",
         "gethomepage.dev/name" : "Overseerr",
         "gethomepage.dev/icon" : "overseerr",

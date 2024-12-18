@@ -147,6 +147,7 @@ resource "kubernetes_ingress_v1" "pi_hole_web" {
     namespace = var.namespace
 
     annotations = {
+      "traefik.ingress.kubernetes.io/router.entrypoints" = "websecure"
       "gethomepage.dev/enabled" : "true",
       "gethomepage.dev/name" : "Pi-hole",
       "gethomepage.dev/icon" : "pi-hole",

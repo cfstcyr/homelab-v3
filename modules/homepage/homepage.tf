@@ -93,6 +93,10 @@ resource "kubernetes_ingress_v1" "homepage" {
   metadata {
     name      = var.homepage_app
     namespace = var.namespace
+
+    annotations = {
+      "traefik.ingress.kubernetes.io/router.entrypoints" = "websecure"
+    }
   }
 
   spec {
