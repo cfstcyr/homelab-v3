@@ -2,6 +2,11 @@ variable "reverse_proxy_domains" {
   type        = list(string)
   description = "Domains for the homelab"
   default     = ["localhost"]
+
+  validation {
+    condition     = length(var.reverse_proxy_domains) > 0
+    error_message = "At least one domain must be specified"
+  }
 }
 
 variable "vpn_env" {

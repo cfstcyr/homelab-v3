@@ -133,7 +133,7 @@ resource "kubernetes_ingress_v1" "dashboard" {
       "gethomepage.dev/weight" : "30",
       "gethomepage.dev/widget.type" : "traefik",
       "gethomepage.dev/widget.url" : "http://${kubernetes_service.traefik_dashboard.metadata[0].name}:8080",
-      "gethomepage.dev/pod-selector"  : "app=${var.traefik_app}"
+      "gethomepage.dev/pod-selector" : "app=${var.traefik_app}"
     }
   }
 
