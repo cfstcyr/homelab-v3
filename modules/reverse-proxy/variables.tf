@@ -10,6 +10,18 @@ variable "config_path" {
   type        = string
 }
 
+variable "certificates_email" {
+  type = string
+  description = "Email address to use for Let's Encrypt certificates"
+}
+
+variable "cloudflare_api_token" {
+  description = "API token for Cloudflare"
+  type        = string
+  sensitive   = true
+  nullable = true
+}
+
 # Traefik
 
 variable "traefik_app" {

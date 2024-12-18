@@ -15,10 +15,11 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "reverse_proxy" {
   config {
     ingress_rule {
       hostname = cloudflare_record.reverse_proxy_root.hostname
-      service  = "http://${var.reverse_proxy_hostname}"
+      service  = "https://${var.reverse_proxy_hostname}"
 
       origin_request {
         origin_server_name = cloudflare_record.reverse_proxy_root.hostname
+        no_tls_verify = true
 
         access {
           required  = true
@@ -33,10 +34,11 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "reverse_proxy" {
 
     ingress_rule {
       hostname = cloudflare_record.reverse_proxy_subdomains.hostname
-      service  = "http://${var.reverse_proxy_hostname}"
+      service  = "https://${var.reverse_proxy_hostname}"
 
       origin_request {
         origin_server_name = cloudflare_record.reverse_proxy_subdomains.hostname
+        no_tls_verify = true
 
         access {
           required  = true

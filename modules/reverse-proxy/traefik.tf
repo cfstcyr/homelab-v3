@@ -45,6 +45,14 @@ resource "kubernetes_deployment" "traefik" {
           }
         }
 
+        volume {
+          name = "${var.traefik_app}-acme"
+
+          persistent_volume_claim {
+            claim_name = kubernetes_persistent_volume_claim.acme.metadata[0].name
+          }
+        }
+
         container {
           name  = var.traefik_app
           image = "traefik:v3.2"
@@ -57,6 +65,11 @@ resource "kubernetes_deployment" "traefik" {
             container_port = 8080
           }
 
+          env {
+            name = "CF_DNS_API_TOKEN"
+            value = var.cloudflare_api_token
+          }
+
           volume_mount {
             name       = "${var.traefik_app}-config"
             mount_path = "/etc/traefik/"
@@ -67,6 +80,12 @@ resource "kubernetes_deployment" "traefik" {
             name       = "${var.traefik_app}-config-providers"
             mount_path = "/etc/traefik/providers/"
             read_only  = true
+          }
+
+          volume_mount {
+            name       = "${var.traefik_app}-acme"
+            mount_path = "/etc/traefik/acme/"
+            read_only  = false
           }
         }
       }

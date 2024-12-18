@@ -13,8 +13,24 @@ providers:
 entrypoints:
   web:
     address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
   websecure:
     address: ":443"
+    http:
+      tls:
+        certResolver: myresolver
+
+certificatesResolvers:
+  myresolver:
+    acme:
+      email: ${certificates_email}
+      storage: /etc/traefik/acme/acme.json
+      dnsChallenge:
+        provider: cloudflare
 
 log:
   level: INFO

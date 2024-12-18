@@ -9,6 +9,7 @@ module "traefik_config" {
 
   template_vars = {
     namespace = var.namespace
+    certificates_email = var.certificates_email
   }
 }
 

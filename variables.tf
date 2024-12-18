@@ -1,3 +1,8 @@
+variable "certificates_email" {
+  type = string
+  description = "Email address to use for Let's Encrypt certificates"
+}
+
 variable "reverse_proxy_domains" {
   type        = list(string)
   description = "Domains for the homelab"

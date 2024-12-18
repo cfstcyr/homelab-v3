@@ -5,8 +5,6 @@ resource "kubernetes_namespace" "homelab" {
 }
 
 module "cloudflare" {
-  count = local.cloudflare_variables_all_set ? 1 : 0
-
   source = "./modules/cloudflare"
 
   namespace = kubernetes_namespace.homelab.metadata[0].name
@@ -27,13 +25,11 @@ module "cloudflare" {
 }
 
 module "cloudflared" {
-  for_each = { for idx, val in module.cloudflare : idx => val }
-
   source = "./modules/cloudflared"
 
   namespace = kubernetes_namespace.homelab.metadata[0].name
 
-  cloudflare_tunnel_token = each.value.tunnel_reverse_proxy_token
+  cloudflare_tunnel_token = module.cloudflare.tunnel_reverse_proxy_token
 
   providers = {
     kubernetes = kubernetes
@@ -51,6 +47,8 @@ module "reverse-proxy" {
 
   namespace   = kubernetes_namespace.homelab.metadata[0].name
   config_path = abspath("${path.module}/config")
+  certificates_email = var.certificates_email
+  cloudflare_api_token = var.cloudflare_api_token
 
   reverse_proxy_domains = var.reverse_proxy_domains
   traefik_subdomain     = var.traefik_subdomain

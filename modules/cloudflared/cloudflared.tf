@@ -37,7 +37,7 @@ resource "kubernetes_deployment" "cloudflared" {
           name  = var.cloudflared_app
           image = "cloudflare/cloudflared:latest"
 
-          args = ["tunnel", "--no-autoupdate", "run"]
+          args = ["tunnel", "--no-tls-verify", "--no-autoupdate", "run"]
 
           volume_mount {
             name       = "${var.cloudflared_app}-tunnel-token"
