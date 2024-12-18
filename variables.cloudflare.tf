@@ -2,30 +2,30 @@ variable "cloudflare_api_token" {
   description = "API token for Cloudflare"
   type        = string
   sensitive   = true
-  nullable = true
-  default = null
+  nullable    = true
+  default     = null
 }
 
 variable "cloudflare_zone_id" {
   description = "Zone ID for your domain"
   type        = string
-  nullable = true
-  default = null
+  nullable    = true
+  default     = null
 }
 
 variable "cloudflare_account_id" {
   description = "Account ID for your Cloudflare account"
   type        = string
   sensitive   = true
-  nullable = true
-  default = null
+  nullable    = true
+  default     = null
 }
 
 variable "cloudflare_access_team" {
   description = "Team name for Cloudflare Access"
   type        = string
-  nullable = true
-  default = null
+  nullable    = true
+  default     = null
 }
 
 # Admin access
@@ -33,8 +33,8 @@ variable "cloudflare_access_team" {
 variable "cloudflare_admin_access" {
   description = "List of emails or email domains that should have admin access to everything"
   type        = list(string)
-  nullable = true
-  default = null
+  nullable    = true
+  default     = null
 }
 
 locals {
