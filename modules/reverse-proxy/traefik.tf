@@ -66,7 +66,7 @@ resource "kubernetes_deployment" "traefik" {
           }
 
           env {
-            name = "CF_DNS_API_TOKEN"
+            name  = "CF_DNS_API_TOKEN"
             value = var.cloudflare_api_token
           }
 

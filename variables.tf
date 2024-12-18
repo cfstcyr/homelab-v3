@@ -1,5 +1,5 @@
 variable "certificates_email" {
-  type = string
+  type        = string
   description = "Email address to use for Let's Encrypt certificates"
 }
 

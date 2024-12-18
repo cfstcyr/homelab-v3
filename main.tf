@@ -45,9 +45,9 @@ module "metrics_server" {
 module "reverse-proxy" {
   source = "./modules/reverse-proxy"
 
-  namespace   = kubernetes_namespace.homelab.metadata[0].name
-  config_path = abspath("${path.module}/config")
-  certificates_email = var.certificates_email
+  namespace            = kubernetes_namespace.homelab.metadata[0].name
+  config_path          = abspath("${path.module}/config")
+  certificates_email   = var.certificates_email
   cloudflare_api_token = var.cloudflare_api_token
 
   reverse_proxy_domains = var.reverse_proxy_domains

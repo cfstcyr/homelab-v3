@@ -8,7 +8,7 @@ module "traefik_config" {
   glob = "traefik.yml"
 
   template_vars = {
-    namespace = var.namespace
+    namespace          = var.namespace
     certificates_email = var.certificates_email
   }
 }

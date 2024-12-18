@@ -19,7 +19,7 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "reverse_proxy" {
 
       origin_request {
         origin_server_name = cloudflare_record.reverse_proxy_root.hostname
-        no_tls_verify = true
+        no_tls_verify      = true
 
         access {
           required  = true
@@ -38,7 +38,7 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "reverse_proxy" {
 
       origin_request {
         origin_server_name = cloudflare_record.reverse_proxy_subdomains.hostname
-        no_tls_verify = true
+        no_tls_verify      = true
 
         access {
           required  = true
