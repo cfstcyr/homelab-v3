@@ -4,6 +4,18 @@ resource "kubernetes_namespace" "homelab" {
   }
 }
 
+module "cloudflare" {
+  source = "./modules/cloudflare"
+
+  namespace = kubernetes_namespace.homelab.metadata[0].name
+
+  cloudflare_api_token  = var.cloudflare_api_token
+  cloudflare_zone_id    = var.cloudflare_zone_id
+  cloudflare_account_id = var.cloudflare_account_id
+
+  cloudflare_admin_access = var.cloudflare_admin_access
+}
+
 module "metrics_server" {
   source = "./modules/metrics-server"
 
