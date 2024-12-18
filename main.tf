@@ -5,6 +5,8 @@ resource "kubernetes_namespace" "homelab" {
 }
 
 module "cloudflare" {
+  count = local.cloudflare_variables_all_set ? 1 : 0
+
   source = "./modules/cloudflare"
 
   namespace = kubernetes_namespace.homelab.metadata[0].name
@@ -18,6 +20,24 @@ module "cloudflare" {
   cloudflare_access_team = var.cloudflare_access_team
 
   cloudflare_admin_access = var.cloudflare_admin_access
+
+  providers = {
+    cloudflare = cloudflare
+  }
+}
+
+module "cloudflared" {
+  for_each = { for idx, val in module.cloudflare : idx => val }
+
+  source = "./modules/cloudflared"
+
+  namespace = kubernetes_namespace.homelab.metadata[0].name
+
+  cloudflare_tunnel_token = each.value.tunnel_reverse_proxy_token
+
+  providers = {
+    kubernetes = kubernetes
+  }
 }
 
 module "metrics_server" {
@@ -64,14 +84,6 @@ module "media_management" {
   library_movies_dir = var.library_movies_dir
   library_tv_dir     = var.library_tv_dir
   downloads_dir      = var.downloads_dir
-}
-
-module "cloudflared" {
-  source = "./modules/cloudflared"
-
-  namespace = kubernetes_namespace.homelab.metadata[0].name
-
-  cloudflare_tunnel_token = module.cloudflare.tunnel_reverse_proxy_token
 }
 
 # module "pi-hole" {

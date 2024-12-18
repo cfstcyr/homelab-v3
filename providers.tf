@@ -19,6 +19,11 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "~> 2.33.0"
     }
+    
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 4.40"
+    }
   }
 
   required_version = "~> 1.10.2"
@@ -27,4 +32,8 @@ terraform {
 provider "kubernetes" {
   config_path    = "~/.kube/config"
   config_context = "docker-desktop"
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token != null ? var.cloudflare_api_token : "THIS_IS_NOT_AN_API_TOKEN________________"
 }
