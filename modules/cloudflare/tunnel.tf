@@ -23,7 +23,10 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "reverse_proxy" {
         access {
           required  = true
           team_name = var.cloudflare_access_team
-          aud_tag   = [cloudflare_zero_trust_access_application.reverse_proxy_admin.aud]
+          aud_tag = concat(
+            length(cloudflare_zero_trust_access_application.reverse_proxy_public) > 0 ? [cloudflare_zero_trust_access_application.reverse_proxy_public[0].aud] : [],
+            [cloudflare_zero_trust_access_application.reverse_proxy_admin.aud]
+          )
         }
       }
     }
@@ -38,7 +41,10 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "reverse_proxy" {
         access {
           required  = true
           team_name = var.cloudflare_access_team
-          aud_tag   = [cloudflare_zero_trust_access_application.reverse_proxy_admin.aud]
+          aud_tag = concat(
+            length(cloudflare_zero_trust_access_application.reverse_proxy_public) > 0 ? [cloudflare_zero_trust_access_application.reverse_proxy_public[0].aud] : [],
+            [cloudflare_zero_trust_access_application.reverse_proxy_admin.aud]
+          )
         }
       }
     }

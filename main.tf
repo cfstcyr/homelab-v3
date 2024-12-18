@@ -10,6 +10,7 @@ module "cloudflare" {
   namespace = kubernetes_namespace.homelab.metadata[0].name
 
   reverse_proxy_hostname = module.reverse-proxy.reverse_proxy_hostname
+  public_endpoints       = var.public_endpoints
 
   cloudflare_api_token   = var.cloudflare_api_token
   cloudflare_zone_id     = var.cloudflare_zone_id

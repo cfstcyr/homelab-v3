@@ -10,6 +10,11 @@ variable "reverse_proxy_hostname" {
   type        = string
 }
 
+variable "public_endpoints" {
+  type        = list(string)
+  description = "Public endpoints for the homelab"
+}
+
 # Cloudflare
 
 variable "cloudflare_api_token" {
