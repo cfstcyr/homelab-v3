@@ -15,14 +15,14 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "reverse_proxy" {
   config {
     ingress_rule {
       hostname = cloudflare_record.reverse_proxy_root.hostname
-      service  = "http://traefik"
+      service  = "http://${var.reverse_proxy_hostname}"
 
       origin_request {
         origin_server_name = cloudflare_record.reverse_proxy_root.hostname
 
         access {
           required  = true
-          team_name = var.namespace
+          team_name = var.cloudflare_access_team
           aud_tag   = [cloudflare_zero_trust_access_application.reverse_proxy_admin.aud]
         }
       }
@@ -30,14 +30,14 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "reverse_proxy" {
 
     ingress_rule {
       hostname = cloudflare_record.reverse_proxy_subdomains.hostname
-      service  = "http://traefik"
+      service  = "http://${var.reverse_proxy_hostname}"
 
       origin_request {
         origin_server_name = cloudflare_record.reverse_proxy_subdomains.hostname
 
         access {
           required  = true
-          team_name = var.namespace
+          team_name = var.cloudflare_access_team
           aud_tag   = [cloudflare_zero_trust_access_application.reverse_proxy_admin.aud]
         }
       }

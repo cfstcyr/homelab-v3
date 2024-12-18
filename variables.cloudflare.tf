@@ -15,6 +15,11 @@ variable "cloudflare_account_id" {
   sensitive   = true
 }
 
+variable "cloudflare_access_team" {
+  description = "Team name for Cloudflare Access"
+  type        = string
+}
+
 # Admin access
 
 variable "cloudflare_admin_access" {

@@ -5,6 +5,11 @@ variable "namespace" {
   type        = string
 }
 
+variable "reverse_proxy_hostname" {
+  description = "The hostname of the reverse proxy"
+  type        = string
+}
+
 # Cloudflare
 
 variable "cloudflare_api_token" {
@@ -22,6 +27,11 @@ variable "cloudflare_account_id" {
   description = "Account ID for your Cloudflare account"
   type        = string
   sensitive   = true
+}
+
+variable "cloudflare_access_team" {
+  description = "Team name for Cloudflare Access"
+  type        = string
 }
 
 # Access

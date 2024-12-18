@@ -9,9 +9,12 @@ module "cloudflare" {
 
   namespace = kubernetes_namespace.homelab.metadata[0].name
 
-  cloudflare_api_token  = var.cloudflare_api_token
-  cloudflare_zone_id    = var.cloudflare_zone_id
-  cloudflare_account_id = var.cloudflare_account_id
+  reverse_proxy_hostname = module.reverse-proxy.reverse_proxy_hostname
+
+  cloudflare_api_token   = var.cloudflare_api_token
+  cloudflare_zone_id     = var.cloudflare_zone_id
+  cloudflare_account_id  = var.cloudflare_account_id
+  cloudflare_access_team = var.cloudflare_access_team
 
   cloudflare_admin_access = var.cloudflare_admin_access
 }
@@ -60,6 +63,14 @@ module "media_management" {
   library_movies_dir = var.library_movies_dir
   library_tv_dir     = var.library_tv_dir
   downloads_dir      = var.downloads_dir
+}
+
+module "cloudflared" {
+  source = "./modules/cloudflared"
+
+  namespace = kubernetes_namespace.homelab.metadata[0].name
+
+  cloudflare_tunnel_token = module.cloudflare.tunnel_reverse_proxy_token
 }
 
 # module "pi-hole" {
