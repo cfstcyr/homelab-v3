@@ -24,7 +24,7 @@ jobs:
           terraform_version: ${{ env.TERRAFORM_VERSION }}
 
       - name: Terraform Format
-        run: terraform fmt -recursive
+        run: terraform fmt -recursive -check
 
   tflint:
     runs-on: ubuntu-latest
