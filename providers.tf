@@ -24,6 +24,11 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "~> 4.40"
     }
+
+    helm = {
+      source  = "hashicorp/helm"
+      version = "~> 2.16"
+    }
   }
 
   required_version = "~> 1.10.2"
@@ -32,6 +37,12 @@ terraform {
 provider "kubernetes" {
   config_path    = "~/.kube/config"
   config_context = "docker-desktop"
+}
+
+provider "helm" {
+  kubernetes {
+    config_path = "~/.kube/config"
+  }
 }
 
 provider "cloudflare" {

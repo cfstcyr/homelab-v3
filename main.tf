@@ -40,6 +40,10 @@ module "metrics_server" {
   source = "./modules/metrics-server"
 
   namespace = kubernetes_namespace.homelab.metadata[0].name
+
+  providers = {
+    helm = helm
+  }
 }
 
 module "reverse-proxy" {
@@ -52,6 +56,10 @@ module "reverse-proxy" {
 
   reverse_proxy_domains = var.reverse_proxy_domains
   traefik_subdomain     = var.traefik_subdomain
+
+  providers = {
+    kubernetes = kubernetes
+  }
 }
 
 module "homepage" {
@@ -62,6 +70,10 @@ module "homepage" {
 
   reverse_proxy_domains = var.reverse_proxy_domains
   homepage_subdomain    = var.homepage_subdomain
+
+  providers = {
+    kubernetes = kubernetes
+  }
 }
 
 module "media_management" {
@@ -82,6 +94,10 @@ module "media_management" {
   library_movies_dir = var.library_movies_dir
   library_tv_dir     = var.library_tv_dir
   downloads_dir      = var.downloads_dir
+
+  providers = {
+    kubernetes = kubernetes
+  }
 }
 
 # module "pi-hole" {
