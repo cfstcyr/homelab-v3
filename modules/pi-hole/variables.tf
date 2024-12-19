@@ -5,11 +5,6 @@ variable "namespace" {
   type        = string
 }
 
-variable "config_path" {
-  description = "The path to the configuration directory"
-  type        = string
-}
-
 # Pi-hole
 
 variable "pi_hole_app" {

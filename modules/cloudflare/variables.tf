@@ -17,12 +17,6 @@ variable "public_endpoints" {
 
 # Cloudflare
 
-variable "cloudflare_api_token" {
-  description = "API token for Cloudflare"
-  type        = string
-  sensitive   = true
-}
-
 variable "cloudflare_zone_id" {
   description = "Zone ID for your domain"
   type        = string
