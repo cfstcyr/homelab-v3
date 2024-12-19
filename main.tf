@@ -99,12 +99,13 @@ module "media_management" {
   }
 }
 
-# module "pi-hole" {
-#   source = "./modules/pi-hole"
+module "pi-hole" {
+  source = "./modules/pi-hole"
 
-#   namespace   = kubernetes_namespace.homelab.metadata[0].name
-#   config_path = abspath("${path.module}/config")
+  namespace   = kubernetes_namespace.homelab.metadata[0].name
+  config_path = abspath("${path.module}/config")
 
-#   reverse_proxy_domains = var.reverse_proxy_domains
-#   pi_hole_subdomain     = var.pi_hole_subdomain
-# }
+  reverse_proxy_domains = var.reverse_proxy_domains
+  pi_hole_subdomain     = var.pi_hole_subdomain
+  pi_hole_api_key       = var.pi_hole_api_key
+}

@@ -70,9 +70,16 @@ variable "overseerr_api_key" {
 
 # Pi-Hole ==================
 
-# variable "pi_hole_subdomain" {
-#   type        = string
-#   description = "Domain for Pi-hole"
-#   nullable    = true
-#   default     = "pihole"
-# }
+variable "pi_hole_subdomain" {
+  type        = string
+  description = "Domain for Pi-hole"
+  nullable    = true
+  default     = "pihole"
+}
+
+variable "pi_hole_api_key" {
+  type        = string
+  description = "API key for Pi-hole. This is required to display the widgets on the homepage. If null, the widgets will not be displayed."
+  nullable    = true
+  default     = null
+}

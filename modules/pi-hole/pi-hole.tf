@@ -30,10 +30,10 @@ resource "kubernetes_deployment" "pi_hole" {
 
       spec {
         volume {
-          name = "${var.pi_hole_app}-dnsmasq"
+          name = "${var.pi_hole_app}-config"
 
-          host_path {
-            path = "/etc/dnsmasq.d"
+          persistent_volume_claim {
+            claim_name = kubernetes_persistent_volume_claim.pi_hole_config.metadata[0].name
           }
         }
 
@@ -77,8 +77,8 @@ resource "kubernetes_deployment" "pi_hole" {
           }
 
           volume_mount {
-            name       = "${var.pi_hole_app}-dnsmasq"
-            mount_path = "/etc/dnsmasq.d"
+            name       = "${var.pi_hole_app}-config"
+            mount_path = "/etc/pihole"
           }
         }
       }
@@ -146,17 +146,22 @@ resource "kubernetes_ingress_v1" "pi_hole_web" {
     name      = "${var.pi_hole_app}-web"
     namespace = var.namespace
 
-    annotations = {
-      "traefik.ingress.kubernetes.io/router.entrypoints" = "websecure"
-      "gethomepage.dev/enabled" : "true",
-      "gethomepage.dev/name" : "Pi-hole",
-      "gethomepage.dev/icon" : "pi-hole",
-      "gethomepage.dev/group" : "Tools",
-      "gethomepage.dev/weight" : "35",
-      "gethomepage.dev/widget.type" : "pihole",
-      "gethomepage.dev/widget.url" : "http://${kubernetes_service.pi_hole_web.metadata[0].name}:80",
-      "gethomepage.dev/pod-selector" : "",
-    }
+    annotations = merge(
+      {
+        "traefik.ingress.kubernetes.io/router.entrypoints" = "websecure"
+        "gethomepage.dev/enabled" : "true",
+        "gethomepage.dev/name" : "Pi-hole",
+        "gethomepage.dev/icon" : "pi-hole",
+        "gethomepage.dev/group" : "Tools",
+        "gethomepage.dev/weight" : "35",
+        "gethomepage.dev/pod-selector" : "",
+      },
+      var.pi_hole_api_key != null ? {
+        "gethomepage.dev/widget.type" : "pihole",
+        "gethomepage.dev/widget.url" : "http://${kubernetes_service.pi_hole_web.metadata[0].name}:80",
+        "gethomepage.dev/widget.key" : var.pi_hole_api_key,
+      } : {}
+    )
   }
 
   spec {
