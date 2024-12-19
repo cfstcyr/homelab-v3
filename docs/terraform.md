@@ -9,6 +9,7 @@ This is the Terraform configuration documentation. Refer to the [README](../READ
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.10.2 |
 | <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | ~> 4.40 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 2.16 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | ~> 2.33.0 |
 
 ## Providers
@@ -48,6 +49,7 @@ This is the Terraform configuration documentation. Refer to the [README](../READ
 | <a name="input_homepage_subdomain"></a> [homepage\_subdomain](#input\_homepage\_subdomain) | Domain for Homepage. This will be concatenated with the domains from reverse\_proxy\_domains. | `string` | `null` | no |
 | <a name="input_library_movies_dir"></a> [library\_movies\_dir](#input\_library\_movies\_dir) | Path on the host pointing to the movies library. This is the directory where Radarr will store the movies and where Plex will read them from. | `string` | n/a | yes |
 | <a name="input_library_tv_dir"></a> [library\_tv\_dir](#input\_library\_tv\_dir) | Path on the host pointing to the TV shows library. This is the directory where Sonarr will store the TV shows and where Plex will read them from. | `string` | n/a | yes |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | Used to group resources in kubernetes. This will also be used as prefix for other resources | `string` | `"homelab-v3"` | no |
 | <a name="input_overseerr_api_key"></a> [overseerr\_api\_key](#input\_overseerr\_api\_key) | API key for Overseerr. This is required to display the widgets on the homepage. If null, the widgets will not be displayed. | `string` | `null` | no |
 | <a name="input_overseerr_subdomain"></a> [overseerr\_subdomain](#input\_overseerr\_subdomain) | Domain for Overseerr. This will be concatenated with the domains from reverse\_proxy\_domains. | `string` | `"overseerr"` | no |
 | <a name="input_prowlarr_subdomain"></a> [prowlarr\_subdomain](#input\_prowlarr\_subdomain) | Domain for Prowlarr. This will be concatenated with the domains from reverse\_proxy\_domains. | `string` | `"prowlarr"` | no |

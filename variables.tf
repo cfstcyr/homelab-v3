@@ -1,3 +1,9 @@
+variable "namespace" {
+  type = string
+  description = "Used to group resources in kubernetes. This will also be used as prefix for other resources"
+  default = "homelab-v3"
+}
+
 variable "certificates_email" {
   type        = string
   description = "Email address to use for Let's Encrypt certificates. This is required for the HTTPS setup for the reverse proxy."
