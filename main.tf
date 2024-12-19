@@ -102,7 +102,7 @@ module "media_management" {
 module "pi-hole" {
   source = "./modules/pi-hole"
 
-  namespace   = kubernetes_namespace.homelab.metadata[0].name
+  namespace = kubernetes_namespace.homelab.metadata[0].name
 
   reverse_proxy_domains = var.reverse_proxy_domains
   pi_hole_subdomain     = var.pi_hole_subdomain
