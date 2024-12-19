@@ -53,6 +53,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: See environments
+        run: echo ${{ secrets.AWS_ACCESS_KEY_ID }}
+
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
         with:
