@@ -8,6 +8,7 @@ This repository contains the Terraform configuration for setting up a homelab Ku
 
 - [Prerequisites](#🧰-prerequisites)
 - [Project Structure](#🗂️-project-structure)
+- [Modules](#📦-modules)
 - [Configuration](#⚙️-configuration)
 - [Usage](#🚀-usage)
 - [More documentation](#📖-more-documentation)
@@ -26,9 +27,46 @@ This repository contains the Terraform configuration for setting up a homelab Ku
 
 ```
 homelab/
-├── config/
-├── modules/
+├── config/               # Configuration files loaded by Kubernetes (No files will be written here, only read)
+|  ├── buildarr/
+|  ├── homepage/
+|  ├── homepage-public/
+|  ├── scripts/
+|  └── traefik/
+├── modules/              # Terraform modules (see below)
+|  ├── cloudflare/
+|  ├── cloudflared/
+|  ├── homepage/
+|  ├── media-management/
+|  ├── metrics-server/
+|  ├── pi-hole/
+|  ├── reverse-proxy/
+|  └── utils/
+├── .env.template         # Environment variables template
+├── .gitignore            # Git ignore file
+├── .terraform-docs.yml   # Terraform docs configuration
+├── .terraform.lock.hcl   # Terraform lock file
+├── .tflint.hcl           # TFLint configuration
+├── main.tf               # Main Terraform configuration
+├── Makefile              # Makefile for Terraform commands
+├── providers.tf          # Terraform providers configuration
+├── README.md             # Project README
+├── variables.apps.tf
+├── variables.cloudflare.tf
+├── variables.path.tf
+└── variables.tf          # Terraform variables
 ```
+
+## 📦 Modules
+
+- [Cloudflare](./modules/cloudflare/): Manages DNS, Access, and Tunnel configurations in Cloudflare.
+- [Cloudflared](./modules/cloudflared/): Manages the Cloudflare Tunnel configuration within the cluster.
+- [Homepage](./modules/homepage/): Manages the Homepage application.
+- [Media Management](./modules/media-management/): Manages the media management applications and the VPN (Radarr, Sonarr, Prowlarr, Overseerr, Transmission).
+- [Metrics Server](./modules/metrics-server/): Manages the metrics server for the cluster.
+- [Pi-hole](./modules/pi-hole/): Manages the Pi-hole application. (Not implemented yet)
+- [Reverse Proxy](./modules/reverse-proxy/): Manages the reverse proxy configuration for the cluster.
+- [Utils](./modules/utils/): Utility module for common resources.
 
 ## ⚙️ Configuration
 
