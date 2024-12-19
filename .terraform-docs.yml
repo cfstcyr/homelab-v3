@@ -1,0 +1,5 @@
+formatter: "markdown"
+
+output:
+  file: "docs/terraform.md"
+  mode: inject

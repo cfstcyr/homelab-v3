@@ -2,7 +2,7 @@
 
 variable "traefik_subdomain" {
   type        = string
-  description = "Domain for Traefik"
+  description = "Domain to access Traefik Dashboard. This will be concatenated with the domains from reverse_proxy_domains."
   nullable    = true
   default     = "traefik"
 }
@@ -11,7 +11,7 @@ variable "traefik_subdomain" {
 
 variable "homepage_subdomain" {
   type        = string
-  description = "Domain for homepage"
+  description = "Domain for Homepage. This will be concatenated with the domains from reverse_proxy_domains."
   nullable    = true
   default     = null
 }
@@ -20,7 +20,7 @@ variable "homepage_subdomain" {
 
 variable "radarr_subdomain" {
   type        = string
-  description = "Domain for Radarr"
+  description = "Domain for Radarr. This will be concatenated with the domains from reverse_proxy_domains."
   nullable    = true
   default     = "radarr"
 }
@@ -29,7 +29,7 @@ variable "radarr_subdomain" {
 
 variable "sonarr_subdomain" {
   type        = string
-  description = "Domain for Sonarr"
+  description = "Domain for Sonarr. This will be concatenated with the domains from reverse_proxy_domains."
   nullable    = true
   default     = "sonarr"
 }
@@ -38,7 +38,7 @@ variable "sonarr_subdomain" {
 
 variable "prowlarr_subdomain" {
   type        = string
-  description = "Domain for Prowlarr"
+  description = "Domain for Prowlarr. This will be concatenated with the domains from reverse_proxy_domains."
   nullable    = true
   default     = "prowlarr"
 }
@@ -47,7 +47,7 @@ variable "prowlarr_subdomain" {
 
 variable "transmission_subdomain" {
   type        = string
-  description = "Domain for Transmission"
+  description = "Domain for Transmission. This will be concatenated with the domains from reverse_proxy_domains."
   nullable    = true
   default     = "transmission"
 }
@@ -56,14 +56,14 @@ variable "transmission_subdomain" {
 
 variable "overseerr_subdomain" {
   type        = string
-  description = "Domain for Overseerr"
+  description = "Domain for Overseerr. This will be concatenated with the domains from reverse_proxy_domains."
   nullable    = true
   default     = "overseerr"
 }
 
 variable "overseerr_api_key" {
   type        = string
-  description = "Overseerr API Key"
+  description = "API key for Overseerr. This is required to display the widgets on the homepage. If null, the widgets will not be displayed."
   nullable    = true
   default     = null
 }
