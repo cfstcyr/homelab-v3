@@ -49,6 +49,7 @@ jobs:
     needs: 
       - format
       - tflint
+    environment: personal
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
