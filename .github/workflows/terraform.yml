@@ -8,7 +8,24 @@ on:
     branches:
       - main
 
+env:
+  TERRAFORM_VERSION: 1.10.2
+
 jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+
+      - name: Terraform Format
+        run: terraform fmt -recursive
+
   tflint:
     runs-on: ubuntu-latest
     steps:
@@ -18,7 +35,7 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 1.10.2
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
 
       - name: Install tflint
         run: |
@@ -37,7 +54,7 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 1.10.2
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
 
       - name: Terraform Init
         run: terraform init
