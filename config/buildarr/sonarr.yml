@@ -1,6 +1,6 @@
 sonarr:
-  hostname: localhost
-  port: 8989
+  hostname: ${sonarr_hostname}
+  port: ${sonarr_port}
   protocol: http
   api_key: ${sonarr_api_key}
 

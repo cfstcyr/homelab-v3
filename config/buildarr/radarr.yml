@@ -1,6 +1,6 @@
 radarr:
-  hostname: localhost
-  port: 7878
+  hostname: ${radarr_hostname}
+  port: ${radarr_port}
   protocol: http
   api_key: ${radarr_api_key}
 
@@ -15,6 +15,65 @@ radarr:
         delete_unmanaged: true
         definitions:
           - /movies
+
+    profiles:
+      quality_profiles:
+        delete_unmanaged: false
+        # definitions:
+        #   HD-1080p:
+        #     upgrades_allowed: true
+        #     upgrade_until_quality: Bluray-1080p
+        #     qualities:
+        #       - Bluray-1080p
+        #       - name: WEB 1080p
+        #         members:
+        #           - WEBRip-1080p
+        #           - WEBDL-1080p
+        #       - HDTV-1080p
+        #     minimum_custom_format_score: 1
+        #     upgrade_until_custom_format_score: 10000
+        #   HD-720p:
+        #     upgrades_allowed: true
+        #     upgrade_until_quality: Bluray-720p
+        #     qualities:
+        #       - Bluray-720p
+        #       - name: WEB 720p
+        #         members:
+        #           - WEBRip-720p
+        #           - WEBDL-720p
+        #       - HDTV-720p
+        #     minimum_custom_format_score: 1
+        #     upgrade_until_custom_format_score: 10000
+        #   HD-720p-1080p:
+        #     upgrades_allowed: true
+        #     upgrade_until_quality: Bluray-1080p
+        #     qualities:
+        #       - Bluray-1080p
+        #       - Bluray-720p
+        #       - name: WEB 1080p
+        #         members:
+        #           - WEBRip-1080p
+        #           - WEBDL-1080p
+        #       - name: WEB 720p
+        #         members:
+        #           - WEBRip-720p
+        #           - WEBDL-720p
+        #       - HDTV-1080p
+        #       - HDTV-720p
+        #     minimum_custom_format_score: 1
+        #     upgrade_until_custom_format_score: 10000
+        #   Ultra-HD:
+        #     upgrades_allowed: true
+        #     upgrade_until_quality: Bluray-2160p
+        #     qualities:
+        #       - Bluray-2160p
+        #       - name: WEB 2160p
+        #         members:
+        #           - WEBRip-2160p
+        #           - WEBDL-2160p
+        #       - HDTV-2160p
+        #     minimum_custom_format_score: 1
+        #     upgrade_until_custom_format_score: 10000
 
     download_clients:
       delete_unmanaged: true
