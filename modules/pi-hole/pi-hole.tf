@@ -154,7 +154,7 @@ resource "kubernetes_ingress_v1" "pi_hole_web" {
         "gethomepage.dev/icon" : "pi-hole",
         "gethomepage.dev/group" : "Tools",
         "gethomepage.dev/weight" : "35",
-        "gethomepage.dev/pod-selector" : "",
+        "gethomepage.dev/pod-selector" : "app=${var.pi_hole_app}",
       },
       var.pi_hole_api_key != null ? {
         "gethomepage.dev/widget.type" : "pihole",

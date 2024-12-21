@@ -1,23 +1,26 @@
 prowlarr:
-  hostname: localhost
-  port: 9696
+  hostname: ${prowlarr_hostname}
+  port: ${prowlarr_port}
   protocol: http
   api_key: ${prowlarr_api_key}
 
   settings:
     apps:
-      delete_unmanaged: true
-      definitions:
-          Sonarr:
-            type: sonarr
-            instance_name: Sonarr
-            prowlarr_url: http://localhost:9696
-            base_url: http://localhost:8989
-            sync_level: full-sync
-          Radarr:
-            type: radarr
-            instance_name: Radarr
-            prowlarr_url: http://localhost:9696
-            base_url: http://localhost:7878
-            sync_level: full-sync
+      applications:
+        delete_unmanaged: true
+        definitions:
+            Sonarr:
+              type: sonarr
+              instance_name: null
+              prowlarr_url: http://localhost:9696
+              base_url: http://localhost:8989
+              api_key: ${sonarr_api_key}
+              sync_level: full-sync
+            Radarr:
+              type: radarr
+              instance_name: null
+              prowlarr_url: http://localhost:9696
+              base_url: http://localhost:7878
+              api_key: ${radarr_api_key}
+              sync_level: full-sync
 

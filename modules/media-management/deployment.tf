@@ -20,12 +20,13 @@ resource "kubernetes_deployment" "media_management" {
     template {
       metadata {
         labels = {
-          app                  = var.media_management_app
-          buildarr_config_hash = local.buildarr_config_hash
+          app = var.media_management_app
         }
       }
 
       spec {
+        service_account_name = kubernetes_service_account.media_management.metadata[0].name
+
         volume {
           name = "tun-device"
           host_path {
@@ -86,14 +87,6 @@ resource "kubernetes_deployment" "media_management" {
           }
         }
 
-        volume {
-          name = "${local.buildarr_app}-config"
-
-          config_map {
-            name = kubernetes_config_map.buildarr_config.metadata[0].name
-          }
-        }
-
         container {
           name  = local.vpn_app
           image = "qmcgaw/gluetun:v3.37.0"
@@ -145,6 +138,11 @@ resource "kubernetes_deployment" "media_management" {
             name       = "downloads"
             mount_path = "/downloads"
           }
+
+          env {
+            name  = "BUILDARR_SONARR_CONFIG_HASH"
+            value = module.buildarr_sonarr.config_hash
+          }
         }
 
         container {
@@ -169,6 +167,11 @@ resource "kubernetes_deployment" "media_management" {
             name       = "downloads"
             mount_path = "/downloads"
           }
+
+          env {
+            name  = "BUILDARR_RADARR_CONFIG_HASH"
+            value = module.buildarr_radarr.config_hash
+          }
         }
 
         container {
@@ -182,6 +185,11 @@ resource "kubernetes_deployment" "media_management" {
           volume_mount {
             name       = "${local.prowlarr_app}-config"
             mount_path = "/config"
+          }
+
+          env {
+            name  = "BUILDARR_PROWLARR_CONFIG_HASH"
+            value = module.buildarr_prowlarr.config_hash
           }
         }
 
@@ -201,19 +209,6 @@ resource "kubernetes_deployment" "media_management" {
           volume_mount {
             name       = "${local.transmission_app}-config"
             mount_path = "/config"
-          }
-        }
-
-        container {
-          name  = "buildarr"
-          image = "callum027/buildarr:latest"
-
-
-
-          volume_mount {
-            name       = "${local.buildarr_app}-config"
-            mount_path = "/config"
-            read_only  = true
           }
         }
 
@@ -269,6 +264,30 @@ resource "kubernetes_deployment" "media_management" {
             name       = "${local.prowlarr_app}-config"
             mount_path = "/config"
           }
+        }
+
+        init_container {
+          name  = "${local.buildarr_app}-${local.radarr_app}-init"
+          image = "bitnami/kubectl:latest"
+
+          command = [
+            "/bin/sh",
+            "-c",
+          "kubectl create job --from=cronjob/${module.buildarr_radarr.cron_job_name} ${module.buildarr_radarr.cron_job_name}-$(date +%s)"]
+        }
+
+        init_container {
+          name  = "${local.buildarr_app}-${local.sonarr_app}-init"
+          image = "bitnami/kubectl:latest"
+
+          command = ["/bin/sh", "-c", "kubectl create job --from=cronjob/${module.buildarr_sonarr.cron_job_name} ${module.buildarr_sonarr.cron_job_name}-$(date +%s)"]
+        }
+
+        init_container {
+          name  = "${local.buildarr_app}-${local.prowlarr_app}-init"
+          image = "bitnami/kubectl:latest"
+
+          command = ["/bin/sh", "-c", "kubectl create job --from=cronjob/${module.buildarr_prowlarr.cron_job_name} ${module.buildarr_prowlarr.cron_job_name}-$(date +%s)"]
         }
       }
     }
