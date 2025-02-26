@@ -83,3 +83,12 @@ variable "pi_hole_api_key" {
   nullable    = true
   default     = null
 }
+
+# PGAdmin  ==================
+
+variable "pgadmin_subdomain" {
+  type        = string
+  description = "Domain for PGAdmin. This will be concatenated with the domains from reverse_proxy_domains."
+  nullable    = true
+  default     = "pgadmin"
+}
