@@ -108,3 +108,16 @@ module "pi-hole" {
   pi_hole_subdomain     = var.pi_hole_subdomain
   pi_hole_api_key       = var.pi_hole_api_key
 }
+
+module "db" {
+  source = "./modules/db"
+
+  namespace = kubernetes_namespace.homelab.metadata[0].name
+
+  reverse_proxy_domains = var.reverse_proxy_domains
+  pgadmin_subdomain = var.pgadmin_subdomain
+
+  providers = {
+    kubernetes = kubernetes
+  }
+}
