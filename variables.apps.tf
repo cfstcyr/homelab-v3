@@ -84,6 +84,15 @@ variable "pi_hole_api_key" {
   default     = null
 }
 
+# Home Assistant  ===========
+
+variable "home_assistant_subdomain" {
+  type        = string
+  description = "Domain for Home Assistant. This will be concatenated with the domains from reverse_proxy_domains."
+  nullable    = true
+  default     = "home"
+}
+
 # PGAdmin  ==================
 
 variable "pgadmin_subdomain" {

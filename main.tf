@@ -121,3 +121,14 @@ module "db" {
     kubernetes = kubernetes
   }
 }
+
+module "home_assistant" {
+  source = "./modules/home-assistant"
+
+  namespace = kubernetes_namespace.homelab.metadata[0].name
+  config_path = abspath("${path.module}/config")
+
+  reverse_proxy_domains = var.reverse_proxy_domains
+  reverse_proxy_ip = module.reverse-proxy.reverse_proxy_ip
+  home_assistant_subdomain = var.home_assistant_subdomain
+}
