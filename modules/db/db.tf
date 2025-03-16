@@ -1,12 +1,12 @@
 resource "kubernetes_stateful_set" "postgres" {
   metadata {
-    name = var.postgres_app
+    name      = var.postgres_app
     namespace = var.namespace
   }
 
   spec {
     service_name = var.postgres_app
-    replicas = 1
+    replicas     = 1
 
     selector {
       match_labels = {
@@ -23,9 +23,9 @@ resource "kubernetes_stateful_set" "postgres" {
 
       spec {
         service_account_name = kubernetes_service_account.postgres.metadata[0].name
-        
+
         container {
-          name = var.postgres_app
+          name  = var.postgres_app
           image = "postgres:latest"
 
           env {
@@ -34,7 +34,7 @@ resource "kubernetes_stateful_set" "postgres" {
             value_from {
               secret_key_ref {
                 name = kubernetes_secret.postgres_auth.metadata[0].name
-                key = "username"
+                key  = "username"
               }
             }
           }
@@ -45,13 +45,13 @@ resource "kubernetes_stateful_set" "postgres" {
             value_from {
               secret_key_ref {
                 name = kubernetes_secret.postgres_auth.metadata[0].name
-                key = "password"
+                key  = "password"
               }
             }
           }
 
           volume_mount {
-            name = "${var.postgres_app}-storage"
+            name       = "${var.postgres_app}-storage"
             mount_path = "/var/lib/postgresql/data"
           }
 
@@ -81,7 +81,7 @@ resource "kubernetes_stateful_set" "postgres" {
 
 resource "kubernetes_service" "postgres" {
   metadata {
-    name = var.postgres_app
+    name      = var.postgres_app
     namespace = var.namespace
   }
 
@@ -91,7 +91,7 @@ resource "kubernetes_service" "postgres" {
     }
 
     port {
-      port = 5432
+      port        = 5432
       target_port = 5432
     }
   }

@@ -70,14 +70,14 @@ resource "kubernetes_persistent_volume_claim" "qbittorrent_config" {
 
   spec {
     access_modes = ["ReadWriteOnce"]
-    
+
     resources {
       requests = {
         storage = "50Mi"
       }
     }
   }
-  
+
 }
 
 resource "kubernetes_persistent_volume_claim" "overseerr_config" {

@@ -36,13 +36,13 @@ variable "pgadmin_app" {
 variable "pgadmin_default_email" {
   description = "The default email for pgAdmin"
   type        = string
-  default = "admin@admin.ca"
+  default     = "admin@admin.ca"
 }
 
 variable "pgadmin_default_password" {
   description = "The default password for pgAdmin"
   type        = string
-  default = "admin"
+  default     = "admin"
 }
 
 # Routing

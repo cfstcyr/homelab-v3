@@ -1,13 +1,13 @@
 resource "kubernetes_service_account" "postgres" {
   metadata {
-    name = var.postgres_app
+    name      = var.postgres_app
     namespace = var.namespace
   }
 }
 
 resource "kubernetes_role" "postgres" {
   metadata {
-    name = "${var.postgres_app}-role"
+    name      = "${var.postgres_app}-role"
     namespace = var.namespace
   }
 
@@ -26,7 +26,7 @@ resource "kubernetes_role" "postgres" {
 
 resource "kubernetes_role_binding" "postgres" {
   metadata {
-    name = "${var.postgres_app}-role-binding"
+    name      = "${var.postgres_app}-role-binding"
     namespace = var.namespace
   }
 

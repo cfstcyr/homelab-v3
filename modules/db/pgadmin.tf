@@ -90,11 +90,11 @@ resource "kubernetes_ingress_v1" "pgadmin" {
         http {
           path {
             path = "/"
-            
+
             backend {
               service {
                 name = var.pgadmin_app
-                
+
                 port {
                   number = 80
                 }

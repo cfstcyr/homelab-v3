@@ -1,6 +1,6 @@
 resource "kubernetes_stateful_set" "home_assistant" {
   metadata {
-    name = var.home_assistant_app
+    name      = var.home_assistant_app
     namespace = var.namespace
 
     labels = {
@@ -10,7 +10,7 @@ resource "kubernetes_stateful_set" "home_assistant" {
 
   spec {
     service_name = var.home_assistant_app
-    replicas = 1
+    replicas     = 1
 
     selector {
       match_labels = {
@@ -50,7 +50,7 @@ resource "kubernetes_stateful_set" "home_assistant" {
         }
 
         container {
-          name = var.home_assistant_app
+          name  = var.home_assistant_app
           image = "ghcr.io/home-assistant/home-assistant:stable"
 
           port {
@@ -58,17 +58,17 @@ resource "kubernetes_stateful_set" "home_assistant" {
           }
 
           volume_mount {
-            name = "${var.home_assistant_app}-dbus"
+            name       = "${var.home_assistant_app}-dbus"
             mount_path = "/run/dbus"
           }
 
           volume_mount {
-            name = "${var.home_assistant_app}-config"
+            name       = "${var.home_assistant_app}-config"
             mount_path = "/config"
           }
 
           volume_mount {
-            name = "${var.home_assistant_app}-config-file"
+            name       = "${var.home_assistant_app}-config-file"
             mount_path = "/config/${local.config_file}"
             sub_path   = local.config_file
           }
@@ -102,7 +102,7 @@ resource "kubernetes_stateful_set" "home_assistant" {
 
 resource "kubernetes_service" "home_assistant" {
   metadata {
-    name = var.home_assistant_app
+    name      = var.home_assistant_app
     namespace = var.namespace
 
     labels = {
@@ -116,7 +116,7 @@ resource "kubernetes_service" "home_assistant" {
     }
 
     port {
-      port = 80
+      port        = 80
       target_port = 8123
     }
   }
@@ -124,7 +124,7 @@ resource "kubernetes_service" "home_assistant" {
 
 resource "kubernetes_ingress_v1" "home_assistant" {
   metadata {
-    name = var.home_assistant_app
+    name      = var.home_assistant_app
     namespace = var.namespace
 
     annotations = {
@@ -148,11 +148,11 @@ resource "kubernetes_ingress_v1" "home_assistant" {
         http {
           path {
             path = "/"
-            
+
             backend {
               service {
                 name = var.home_assistant_app
-                
+
                 port {
                   number = 80
                 }

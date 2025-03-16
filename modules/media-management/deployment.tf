@@ -220,7 +220,7 @@ resource "kubernetes_deployment" "media_management" {
         }
 
         container {
-          name = local.qbittorrent_app
+          name  = local.qbittorrent_app
           image = "lscr.io/linuxserver/qbittorrent:latest"
 
           port {
@@ -228,12 +228,12 @@ resource "kubernetes_deployment" "media_management" {
           }
 
           volume_mount {
-            name = "downloads"
+            name       = "downloads"
             mount_path = "/downloads"
           }
 
           volume_mount {
-            name = "${local.qbittorrent_app}-config"
+            name       = "${local.qbittorrent_app}-config"
             mount_path = "/config"
           }
         }

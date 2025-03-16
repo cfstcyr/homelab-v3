@@ -116,7 +116,7 @@ module "db" {
   namespace = kubernetes_namespace.homelab.metadata[0].name
 
   reverse_proxy_domains = var.reverse_proxy_domains
-  pgadmin_subdomain = var.pgadmin_subdomain
+  pgadmin_subdomain     = var.pgadmin_subdomain
 
   providers = {
     kubernetes = kubernetes

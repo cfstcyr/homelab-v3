@@ -53,7 +53,7 @@ resource "kubernetes_deployment" "homepage" {
           }
 
           env {
-            name = "HOMEPAGE_ALLOWED_HOSTS"
+            name  = "HOMEPAGE_ALLOWED_HOSTS"
             value = join(",", var.reverse_proxy_domains)
           }
 

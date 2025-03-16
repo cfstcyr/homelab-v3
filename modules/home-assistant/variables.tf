@@ -26,7 +26,7 @@ variable "reverse_proxy_domains" {
 }
 
 variable "reverse_proxy_ip" {
-  type       = string
+  type        = string
   description = "IP address of the reverse proxy"
 }
 
