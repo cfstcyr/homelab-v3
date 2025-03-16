@@ -52,6 +52,15 @@ variable "transmission_subdomain" {
   default     = "transmission"
 }
 
+# qBittorrent  ==============
+
+variable "qbittorrent_subdomain" {
+  type        = string
+  description = "Domain for qBittorrent. This will be concatenated with the domains from reverse_proxy_domains."
+  nullable    = true
+  default     = "qbittorrent"
+}
+
 # Overseerr  =================
 
 variable "overseerr_subdomain" {
@@ -82,4 +91,22 @@ variable "pi_hole_api_key" {
   description = "API key for Pi-hole. This is required to display the widgets on the homepage. If null, the widgets will not be displayed."
   nullable    = true
   default     = null
+}
+
+# Home Assistant  ===========
+
+variable "home_assistant_subdomain" {
+  type        = string
+  description = "Domain for Home Assistant. This will be concatenated with the domains from reverse_proxy_domains."
+  nullable    = true
+  default     = "home"
+}
+
+# PGAdmin  ==================
+
+variable "pgadmin_subdomain" {
+  type        = string
+  description = "Domain for PGAdmin. This will be concatenated with the domains from reverse_proxy_domains."
+  nullable    = true
+  default     = "pgadmin"
 }

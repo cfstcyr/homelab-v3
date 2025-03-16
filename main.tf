@@ -87,6 +87,7 @@ module "media_management" {
   sonarr_subdomain       = var.sonarr_subdomain
   prowlarr_subdomain     = var.prowlarr_subdomain
   transmission_subdomain = var.transmission_subdomain
+  qbittorrent_subdomain  = var.qbittorrent_subdomain
   overseerr_subdomain    = var.overseerr_subdomain
   overseerr_api_key      = var.overseerr_api_key
 
@@ -108,3 +109,27 @@ module "pi-hole" {
   pi_hole_subdomain     = var.pi_hole_subdomain
   pi_hole_api_key       = var.pi_hole_api_key
 }
+
+module "db" {
+  source = "./modules/db"
+
+  namespace = kubernetes_namespace.homelab.metadata[0].name
+
+  reverse_proxy_domains = var.reverse_proxy_domains
+  pgadmin_subdomain     = var.pgadmin_subdomain
+
+  providers = {
+    kubernetes = kubernetes
+  }
+}
+
+# module "home_assistant" {
+#   source = "./modules/home-assistant"
+
+#   namespace = kubernetes_namespace.homelab.metadata[0].name
+#   config_path = abspath("${path.module}/config")
+
+#   reverse_proxy_domains = var.reverse_proxy_domains
+#   reverse_proxy_ip = module.reverse-proxy.reverse_proxy_ip
+#   home_assistant_subdomain = var.home_assistant_subdomain
+# }

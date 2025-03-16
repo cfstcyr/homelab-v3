@@ -1,0 +1,15 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+homeassistant:
+  name: Appartement
+  unit_system: metric
+  currency: CAD
+  country: CA
+  external_url: https://${base_url}
+  debug: true
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 0.0.0.0/0

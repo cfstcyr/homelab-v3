@@ -173,6 +173,49 @@ resource "kubernetes_ingress_v1" "prowlarr" {
   }
 }
 
+resource "kubernetes_ingress_v1" "qbittorrent" {
+  metadata {
+    name      = local.qbittorrent_app
+    namespace = var.namespace
+
+    annotations = {
+      "traefik.ingress.kubernetes.io/router.entrypoints" = "websecure"
+      "gethomepage.dev/enabled" : "true",
+      "gethomepage.dev/name" : "qBittorrent",
+      "gethomepage.dev/icon" : "qbittorrent",
+      "gethomepage.dev/group" : "Tools",
+      "gethomepage.dev/weight" : "10",
+      # "gethomepage.dev/widget.type" : "qbittorrent",
+      # "gethomepage.dev/widget.url" : "http://qbittorrent:8080",
+      "gethomepage.dev/pod-selector" : "app=${var.media_management_app}"
+    }
+  }
+
+  spec {
+    dynamic "rule" {
+      for_each = var.reverse_proxy_domains
+
+      content {
+        host = var.qbittorrent_subdomain != null ? "${var.qbittorrent_subdomain}.${rule.value}" : rule.value
+        http {
+          path {
+            path = "/"
+
+            backend {
+              service {
+                name = "qbittorrent"
+                port {
+                  number = 8080
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 resource "kubernetes_ingress_v1" "overseerr" {
   metadata {
     name      = "overseerr"

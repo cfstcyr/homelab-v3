@@ -87,6 +87,13 @@ resource "kubernetes_deployment" "media_management" {
           }
         }
 
+        volume {
+          name = "${local.qbittorrent_app}-config"
+          persistent_volume_claim {
+            claim_name = kubernetes_persistent_volume_claim.qbittorrent_config.metadata[0].name
+          }
+        }
+
         container {
           name  = local.vpn_app
           image = "qmcgaw/gluetun:v3.37.0"
@@ -208,6 +215,25 @@ resource "kubernetes_deployment" "media_management" {
 
           volume_mount {
             name       = "${local.transmission_app}-config"
+            mount_path = "/config"
+          }
+        }
+
+        container {
+          name  = local.qbittorrent_app
+          image = "lscr.io/linuxserver/qbittorrent:latest"
+
+          port {
+            container_port = 8080
+          }
+
+          volume_mount {
+            name       = "downloads"
+            mount_path = "/downloads"
+          }
+
+          volume_mount {
+            name       = "${local.qbittorrent_app}-config"
             mount_path = "/config"
           }
         }

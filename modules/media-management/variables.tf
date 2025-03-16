@@ -46,6 +46,11 @@ variable "transmission_subdomain" {
   description = "Domain for Transmission"
 }
 
+variable "qbittorrent_subdomain" {
+  type        = string
+  description = "Domain for qBittorrent"
+}
+
 variable "prowlarr_subdomain" {
   type        = string
   description = "Domain for Prowlarr"
