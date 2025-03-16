@@ -52,6 +52,11 @@ resource "kubernetes_deployment" "homepage" {
             container_port = 3000
           }
 
+          env {
+            name = "HOMEPAGE_ALLOWED_HOSTS"
+            value = join(",", var.reverse_proxy_domains)
+          }
+
           volume_mount {
             name       = "${var.homepage_app}-config"
             mount_path = "/app/config"
