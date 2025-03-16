@@ -6,4 +6,5 @@ locals {
   transmission_app = "transmission"
   buildarr_app     = "buildarr"
   overseerr_app    = "overseerr"
+  qbittorrent_app  = "qbittorrent"
 }

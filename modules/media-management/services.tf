@@ -107,6 +107,28 @@ resource "kubernetes_service" "transmission" {
   }
 }
 
+resource "kubernetes_service" "qbittorrent" {
+  metadata {
+    name      = local.qbittorrent_app
+    namespace = var.namespace
+
+    labels = {
+      app = var.media_management_app
+    }
+  }
+
+  spec {
+    selector = {
+      app = var.media_management_app
+    }
+
+    port {
+      port        = 8080
+      target_port = 8080
+    }
+  }
+}
+
 resource "kubernetes_service" "overseerr" {
   metadata {
     name      = local.overseerr_app

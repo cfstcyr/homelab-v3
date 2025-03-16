@@ -18,8 +18,10 @@ sonarr:
     download_clients:
       delete_unmanaged: true
       definitions:
-        Transmission:
-          type: transmission
+        QBitTorrent:
+          type: qbittorrent
           host: localhost
-          port: 9091
-          category: ""
+          port: 8080
+          username: cfstcyr
+          password: bDDJ494@FA!gcHbAzhvq63rY
+          category: tv-sonarr

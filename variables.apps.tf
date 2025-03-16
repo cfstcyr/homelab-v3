@@ -52,6 +52,15 @@ variable "transmission_subdomain" {
   default     = "transmission"
 }
 
+# qBittorrent  ==============
+
+variable "qbittorrent_subdomain" {
+  type        = string
+  description = "Domain for qBittorrent. This will be concatenated with the domains from reverse_proxy_domains."
+  nullable    = true
+  default     = "qbittorrent"
+}
+
 # Overseerr  =================
 
 variable "overseerr_subdomain" {
